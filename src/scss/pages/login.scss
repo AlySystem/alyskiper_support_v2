@@ -1,0 +1,37 @@
+#components-form-demo-normal-login .login-form {
+    max-width: 400px;
+}
+
+#components-form-demo-normal-login .login-form-button {
+    width: 100%;
+}
+  #components-form-demo-normal-login .login-form-forgot {
+    float: right;
+  }
+  #components-form-demo-normal-login .login-form-button {
+    width: 100%;
+  }
+
+// .containerp{
+//     max-width: 300px;
+//     left: 0;
+//     top: 0;
+//     transform: translate(50%,50%);
+// }
+.ant-form {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    list-style: none;
+    -webkit-font-feature-settings: 'tnum';
+    font-feature-settings: 'tnum', "tnum";
+    max-width: 300px;
+    left: 0;
+    top: 0;
+    transform: translate(180%,100%);
+}
