@@ -3,7 +3,40 @@ import ReactDOM from 'react-dom';
 import Skiper from './routes/Skiper';
 import * as serviceWorker from './serviceWorker';
 import './scss/styles.scss'
+import Home from './pages/Home/Home'
+import { ApolloProvider } from '@apollo/react-hooks';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import ApolloClient from 'apollo-boost';
 
-ReactDOM.render(<Skiper />, document.getElementById('root'));
+const client = new ApolloClient({
+    uri: 'https://backend-alyskiper.herokuapp.com/graphql',
+    fetchOptions: {
+        credentials: 'include'
+    },
+    request: operation => {
+        const token = localStorage.getItem('token');
+        const authorization = token ? `Bearer ${token}` : ''
+
+        operation.setContext({
+            headers: {
+                Authorization: authorization
+            }
+        })
+    },
+    cache: new InMemoryCache({
+        addTypename: false
+    }),
+    onError: ({ networkError, graphQLErrors }) => {
+        console.log(networkError)
+        console.log('graphQLErrors', networkError);
+    }
+})
+
+
+ReactDOM.render(
+    <ApolloProvider client={client}>
+        <Home />
+    </ApolloProvider>
+    ,document.getElementById('root'));
 
 serviceWorker.unregister();

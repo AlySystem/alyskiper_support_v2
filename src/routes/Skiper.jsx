@@ -1,22 +1,17 @@
-import React from 'react'
-// import { Router } from '@reach/router'
+import React, { Fragment } from 'react'
 
-// import page
 import Login from '../pages/Login/Login'
-// import Home from '../pages/Home/Home'
+import Home from '../pages/Home/Home'
 
-// import components
-
+import Dashboard from "../pages/Dashboard/Dashboard"
+import { Router, Link } from "@reach/router";
 const Skiper = () => {
-  return (
-    <>
-      <Login
-        exact
-        path='/login'
-        render={() => <Login refetch={this.props.refetch} />}
-      />
-    </>
-  )
+	return (
+		<Router>
+			<Login path="/login" />
+			<Dashboard path="/dashboard"/>
+		</Router>
+	)
 }
 
 export default Skiper
