@@ -11,7 +11,7 @@ const Home = () => {
 	const token = localStorage.getItem('token')
 	console.log("El token ", token)
 	if (token === '') {
-		return ( <Login />)
+		return (<Login />)
 	}
 
 	return (
@@ -28,14 +28,19 @@ const Home = () => {
 				}}>
 					<MenuMain />
 				</Sider>
-				<Content>
+				<Content style={{ 'margin-left': '45px' }}>
 					<Fragment>
 						<Skiper />
 					</Fragment>
 				</Content>
-				<Footer>
-
-				</Footer>
+				<Footer
+					style={{
+						overflow: 'auto',
+						width: '100vh',
+						position: 'fixed',
+						bottom: 0,
+					}}
+				></Footer>
 			</Layout>
 		</Fragment>
 	)

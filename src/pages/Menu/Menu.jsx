@@ -5,18 +5,15 @@ const { SubMenu } = Menu;
 
 const MenuMain = () => {
     return (
-        <Menu theme="dark">
-            <SubMenu
+        <Menu theme="dark" mode="inline">
+            <Menu.Item
                 key="sub1"
-                title={
-                    <span>
-                        <Icon type="home" />
-                        <span><Link to="/dashboard">Dashboard</Link></span>
-                    </span>
-                }
             >
-
-            </SubMenu>
+                <span>
+                    <Icon type="home" />
+                    <span><Link to="/dashboard">Dashboard</Link></span>
+                </span>
+            </Menu.Item>
             <SubMenu key="sub2"
                 title={
                     <span>
