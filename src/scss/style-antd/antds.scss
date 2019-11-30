@@ -1,0 +1,43 @@
+.ant-layout.ant-layout-has-sider > .ant-layout, .ant-layout.ant-layout-has-sider > .ant-layout-content {
+   background: var(--color-main) !important;
+   
+}
+.ant-layout-footer {
+    padding: 24px 50px;
+    color: #fff !important;
+    font-size: 14px;
+    background: #030347 !important;
+}
+.ant-layout, .ant-layout * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #fff !important;
+}
+.ant-layout-header {
+    height: 64px;
+    padding: 0 50px;
+    line-height: 64px;
+    color: #fff !important;
+    background: #030347 !important;
+
+}
+.ant-menu-dark.ant-menu-inline .ant-menu-item, .ant-menu-dark.ant-menu-inline .ant-menu-submenu-title {
+    width: 100%;
+    &:hover{
+        color: var(--color-secondary) !important;
+        background: #030347;
+    }
+}
+.back{
+    padding: 24px;
+    background: url(../../assets/img/Bk-pr.png) !important;
+    min-height: 360px;
+}
+.conant{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.ico{
+    padding-right: 5px;
+}
