@@ -1,18 +1,16 @@
 import React from 'react'
-
-// import Login from '../pages/Login/Login'
 import Home from '../pages/Home/Home'
-
-// import Dashboard from '../pages/Dashboard/Dashboard'
+import ComercioContainer from '../pages/Comercios/ComerciosContainer'
 import { Router } from '@reach/router'
 const Skiper = () => {
-  return (
-    <Router>
-      {/* <Login path='/login' /> */}
-      <Home path='/home' />
-      {/* <Dashboard path='/dashboard' /> */}
-    </Router>
-  )
+    return (
+        <Router>
+            {/* <Login path='/login' /> */}
+            <Home path='/home' />
+            <ComercioContainer path='/comercios'/>
+            {/* <Dashboard path='/dashboard' /> */}
+        </Router>
+    )
 }
 
 export default Skiper

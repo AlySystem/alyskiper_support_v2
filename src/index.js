@@ -1,12 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-// import Skiper from './routes/Skiper';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import * as serviceWorker from './serviceWorker'
 import './scss/styles.scss'
 import Home from './pages/Home/Home'
-import { ApolloProvider } from '@apollo/react-hooks';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import ApolloClient from 'apollo-boost';
+import Login from './pages/Login/Login'
+import { ApolloProvider } from '@apollo/react-hooks'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import ApolloClient from 'apollo-boost'
+import { Router } from "@reach/router";
+import Dashboard from './pages/Dashboard/Dashboard'
 
 const client = new ApolloClient({
     uri: 'https://backend-alyskiper.herokuapp.com/graphql',
@@ -14,7 +16,7 @@ const client = new ApolloClient({
         credentials: 'include'
     },
     request: operation => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token')
         const authorization = token ? `Bearer ${token}` : ''
 
         operation.setContext({
@@ -32,11 +34,13 @@ const client = new ApolloClient({
     }
 })
 
-
 ReactDOM.render(
     <ApolloProvider client={client}>
-        <Home />
+        <Router>
+            <Login path='/login' />
+            <Home path='/*' />
+        </Router>
     </ApolloProvider>
-    ,document.getElementById('root'));
+    , document.getElementById('root'))
 
-serviceWorker.unregister();
+serviceWorker.unregister()
