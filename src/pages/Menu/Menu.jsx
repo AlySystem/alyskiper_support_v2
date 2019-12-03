@@ -61,7 +61,11 @@ const MenuMain = () => {
                         </span>
                     }
                 >
-                    <Menu.Item key='4'>Admin Ejecutivo</Menu.Item>
+                    <Menu.Item key='4'>
+                        <Link to="/ejecutivos">
+                            Admin Ejecutivo
+                        </Link>
+                    </Menu.Item>
                 </SubMenu>
                 <SubMenu
                     key='sub3'

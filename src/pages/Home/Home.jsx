@@ -7,7 +7,8 @@ import Dashboard from '../Dashboard/Dashboard'
 import logo1 from '../../assets/img/AlySystem.png'
 import logo from '../../assets/img/A.png'
 import { navigate } from '@reach/router'
-
+import MainComercios from '../Comercios/MainComercios'
+import Ejecutivo from '../Ejecutivos/Ej'
 const { Header, Content, Footer, Sider } = Layout;
 
 const Home = () => {
@@ -52,6 +53,8 @@ const Home = () => {
                         <Fragment>
                             <Router>
                                 <Dashboard path="/dashboard" />
+                                <MainComercios path="/comercios"/>
+                                <Ejecutivo path="/ejecutivos"/>
                             </Router>
                         </Fragment>
                     </div>
