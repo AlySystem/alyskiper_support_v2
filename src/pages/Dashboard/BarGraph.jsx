@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import Chart from 'chart.js'
+
 const BarGraph = (props) => {
 
     useEffect(() => {

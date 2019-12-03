@@ -33,5 +33,21 @@
     max-width: 300px;
     left: 0;
     top: 0;
-    transform: translate(180%,100%);
+    transform: translate(180%,65%);
+    padding: 1rem !important;
+}
+
+.formu{
+  background: url(../../assets/img/Bk-pr.png);
+  border-radius: 1rem;
+}
+
+.ant-btn-primary {
+  color: #fff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+  margin-left: 35% !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
