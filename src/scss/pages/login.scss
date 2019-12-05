@@ -52,9 +52,11 @@
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
 
-.parti{
+.animates{
   position:absolute;
   z-index: var(--z-back);
   top: 0;
   left: 0;
+  width: 100vw;
+  height: 100vh;
 }

@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { COMERCIOS_QUERY } from '../../Queries/index'
-import { useQuery } from '@apollo/react-hooks'
-import { Link } from '@reach/router'
-import FilteredGrid from '../../components/filteredGrid/FilteredGrid'
-import '../../scss/loader/_loader.scss'
+import React, { useEffect, useState, useRef } from "react";
+import { COMERCIOS_QUERY } from "../../Queries/index";
+import { useQuery } from "@apollo/react-hooks";
+import { Link } from "@reach/router";
+import FilteredGrid from "../../components/filteredGrid/FilteredGrid";
+import "../../scss/loader/_loader.scss";
 
 const MainComercios = () => {
   const [rows, setRows] = useState();
@@ -15,10 +15,10 @@ const MainComercios = () => {
     error: errorCommerce
   } = useQuery(COMERCIOS_QUERY, {
     variables: { id_user: 1 }
-  })
+  });
 
   /*-- acceso a la funciones dentro del grid --*/
-  const grid = useRef()
+  const grid = useRef();
 
   useEffect(() => {
     if (dataCommerce) {
@@ -35,14 +35,17 @@ const MainComercios = () => {
           ciudad: item.city.name,
           color: "#ddd",
           editar: (
-            <Link to={`./editar/${item.id}`} className="btn btn-info btn-block">
+            <Link
+              to={`./editar/${item.id}`}
+              className="btnedit"
+            >
               Editar
             </Link>
           ),
           agregar: (
             <Link
               to={`/producto/nuevo/${parseInt(item.id)}`}
-              className="btn btn-warning btn-block"
+              className="btnadd"
             >
               Agregar
             </Link>
@@ -113,19 +116,19 @@ const MainComercios = () => {
       setRows(finalRows);
       console.log("seteo datos");
     }
-  }, [dataCommerce]); 
-  console.log(loadingCommerce)
-  if(loadingCommerce)
+  }, [dataCommerce]);
+  console.log(loadingCommerce);
+  if (loadingCommerce)
     return (
       <div class="sk-folding-cube">
-        <div class="sk-cube1 sk-cube"/>
-        <div class="sk-cube2 sk-cube"/>
-        <div class="sk-cube4 sk-cube"/>
-        <div class="sk-cube3 sk-cube"/>
+        <div class="sk-cube1 sk-cube" />
+        <div class="sk-cube2 sk-cube" />
+        <div class="sk-cube4 sk-cube" />
+        <div class="sk-cube3 sk-cube" />
       </div>
-    )
+    );
 
-  return <FilteredGrid ref={grid} columns={columns} rows={rows} />
+  return <FilteredGrid ref={grid} columns={columns} rows={rows} />;
 };
 
-export default MainComercios
+export default MainComercios;
