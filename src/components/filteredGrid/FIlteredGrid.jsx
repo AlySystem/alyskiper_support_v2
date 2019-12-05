@@ -36,37 +36,37 @@ const FilteredGrid = forwardRef((props, ref) => {
       confirm,
       clearFilters
     }) => (
-      <div style={{ padding: 8 }}>
-        <Input
-          ref={node => {
-            setSearchInfo(node)
-          }}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={e =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{ width: 188, marginBottom: 8, display: 'block' }}
-        />
-        <Button
-          type='primary'
-          onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          icon='search'
-          size='small'
-          style={{ width: 90, marginRight: 8 }}
-        >
-          Search
+        <div style={{ padding: 8 }}>
+          <Input
+            ref={node => {
+              setSearchInfo(node)
+            }}
+            placeholder={`Search ${dataIndex}`}
+            value={selectedKeys[0]}
+            onChange={e =>
+              setSelectedKeys(e.target.value ? [e.target.value] : [])
+            }
+            onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            style={{ width: 188, marginBottom: 8, display: 'block' }}
+          />
+          <Button
+            type='primary'
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon='search'
+            size='small'
+            style={{ width: 90, marginRight: 8 }}
+          >
+            Search
         </Button>
-        <Button
-          onClick={() => handleReset(clearFilters)}
-          size='small'
-          style={{ width: 90 }}
-        >
-          Reset
+          <Button
+            onClick={() => handleReset(clearFilters)}
+            size='small'
+            style={{ width: 90 }}
+          >
+            Reset
         </Button>
-      </div>
-    ),
+        </div>
+      ),
     filterIcon: filtered => (
       <Icon type='search' style={{ color: filtered ? '#1890ff' : undefined }} />
     ),
@@ -77,7 +77,8 @@ const FilteredGrid = forwardRef((props, ref) => {
         .includes(value.toLowerCase()),
     onFilterDropdownVisibleChange: visible => {
       if (visible) {
-        setTimeout(() => searchInput.select());
+        if (searchInput)
+          setTimeout(() => searchInput.select());
       }
     },
     render: text =>
@@ -89,8 +90,8 @@ const FilteredGrid = forwardRef((props, ref) => {
           textToHighlight={text.toString()}
         />
       ) : (
-        text
-      )
+          text
+        )
   });
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm()
@@ -128,7 +129,7 @@ const FilteredGrid = forwardRef((props, ref) => {
       dataSource={rows}
       // rowClassName={record => record.color.replace('#', '')}
       rowKey={record => record.id}
-    //   scroll={{ x: 1155 }}
+      //   scroll={{ x: 1155 }}
       responsive
     />
   )

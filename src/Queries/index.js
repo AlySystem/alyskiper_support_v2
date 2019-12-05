@@ -397,6 +397,7 @@ query getByCategoryAgentIdAndCityId ($id: Int!, $idcity: Int!) {
         email
         user
         phone
+        address
       }
     }
   }

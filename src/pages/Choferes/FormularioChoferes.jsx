@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import CountriesSelect from '../../components/countriesSelect/CountriesSelect'
 import CitiesSlect from '../../components/CitiesSelect/CitiesSelect'
 import CiviStatusSelect from '../../components/CivilStatusSelect/CivilStatusSelect'
@@ -15,18 +15,28 @@ const FormularioChoferes = (props) => {
     const [city, setCity] = useState()
     const [civilStatus, setCivilStatus] = useState()
 
-
     const schema = yup.object().shape({
         firstname: yup.string().required(),
         lastname: yup.string().required(),
+        email: yup.string().email().required(),
+        user: yup.string().required(),
+        password: yup.string().required(),
+        address: yup.string().required(),
+        phone: yup.string().required(),
+        identity: yup.string().required(),
+        date_birth: yup.date().min(new Date(1901, 1, 1)).max(new Date(3000, 12, 31)),
+        // avatar: String,
+        country_id: yup.number().positive(),
+        city_id: yup.number().positive(),
+        idcivil_status: yup.number().positive()
     });
 
     const { register, handleSubmit, errors } = useForm({ validationSchema: schema })
 
-    const [addUser, { data: dataUser, error }] = useMutation(NUEVO_USUARIO)
+    const [addUser, { data: dataUser }] = useMutation(NUEVO_USUARIO)
     const [addAgent, { data: dataAgent }] = useMutation(NUEVO_AGENTE)
 
-    const runForm = (values) => {
+    const runForm = async (values) => {
         console.log(values)
         const userInput = {
             firstname: values.firstname,
@@ -45,44 +55,46 @@ const FormularioChoferes = (props) => {
         }
         console.log("input")
         console.log({ input: userInput })
-        addUser({
-            variables: { input: userInput },
-            onError: (error) => {
-                console.log(error)
-            },
-            onCompleted: (data) => {
-                console.log("logro insertar el user")
-                console.log(data)
-                if (data.error) {
-                    console.error(data.error)
-                } else {
-                    submitAgent(data)
-                }
+        try {
+            const data = await addUser({
+                variables: { input: userInput }
+            })
+            console.log("logro insertar el user")
+            console.log(data)
+            if (data.error) {
+                console.error(data.error)
+            } else {
+                submitAgent(data, values.identity)
             }
-        })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    const submitAgent = (data) => {
-        const {token} = data
+    const submitAgent = async (data, identity) => {
+        /*const { token } = data
         console.log("el token: " + token)
-        const id = jwtDecode(`Bearer ${token}`)
+        const id = jwtDecode(`Bearer ${token}`)*/
+        const { id } = data.data.createUser
+
         const agentInput = {
             user_id: parseInt(id),
             state: true,
             categoryAgent_id: parseInt(CATEGORIA_DRIVER),
-            identity: parseInt(data.identity)
+            identity: identity
         }
-        addAgent({
-            variables: { input: agentInput },
-            onError: (error) => {
-                console.log(error)
-            },
-            onCompleted: (data) => {
-                console.log("logro insertar el agent")
-                console.log(data)
-                navigate('/choferes')
-            }
-        })
+        console.log("El agentInput")
+        console.log(agentInput)
+        try {
+            const data = await addAgent({
+                variables: { input: agentInput }
+            })
+            console.log("logro insertar el agent")
+            console.log(data)
+            navigate('/choferes')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const onCountrySelectHandler = (e) => {
@@ -93,11 +105,6 @@ const FormularioChoferes = (props) => {
         setCity(e.currentTarget.value)
     }
 
-    const onCivilStatusSelectHandler = (e) => {
-        console.log(e.currentTarget.value)
-        setCivilStatus(e.currentTarget.value)
-    }
-
     return (
         <div>
             <form id="frmChofer" onSubmit={handleSubmit(runForm)}>
@@ -106,48 +113,57 @@ const FormularioChoferes = (props) => {
                     <div>
                         <label>Nombre</label>
                         <input name="firstname" ref={register} placeholder="Nombre" />
-                        {errors.firstname && "Your input is required"}
+                        {errors.firstname && "Este campo es requerido"}
                     </div>
                     <div>
                         <label>Apellido</label>
                         <input name="lastname" ref={register} placeholder="Apellido" />
-                        {errors.lastname && "Your input is required"}
+                        {errors.lastname && "Este campo es requerido"}
                     </div>
                     <div>
                         <label>Correo</label>
                         <input name="email" ref={register} placeholder="Correo" />
+                        {errors.email && "Este campo es requerido"}
                     </div>
                     <div>
                         <label>SponsorId</label>
                         <input name="sponsor_id" ref={register} placeholder="Sponsor" />
+                        {errors.sponsor_id && "Este campo es requerido"}
                     </div>
                     <div>
                         <label>Telefono</label>
                         <input name="phone" ref={register} placeholder="Telefono" />
+                        {errors.phone && "Este campo es requerido"}
                     </div>
                     <div>
                         <label>Direccion</label>
                         <input name="address" ref={register} placeholder="Direccion" />
+                        {errors.address && "Este campo es requerido"}
                     </div>
                     <div>
                         <label>Fecha de Nacimiento</label>
                         <input name="date_birth" ref={register} placeholder="Fecha de Nacimiento" type="date" />
+                        {errors.lastname && "Este campo es requerido"}
                     </div>
                     <div>
                         <label>Pais</label>
                         <CountriesSelect register={register} name="country_id" onChange={onCountrySelectHandler} />
+                        {errors.lastname && "Este campo es requerido"}
                     </div>
                     <div>
                         <label>Ciudad</label>
                         <CitiesSlect register={register} name="city_id" onChange={onCitiesSelectHandler} countryId={country} />
+                        {errors.lastname && "Este campo es requerido"}
                     </div>
                     <div>
                         <label>Estado Civil</label>
-                        <CiviStatusSelect register={register} name="idcivil_status" onChange={onCivilStatusSelectHandler}></CiviStatusSelect>
+                        <CiviStatusSelect register={register} name="idcivil_status" />
+                        {errors.lastname && "Este campo es requerido"}
                     </div>
                     <div>
                         <label>Identificacion</label>
-                        <input name="skiperAgent" ref={register} placeholder="Identificacion" />
+                        <input name="identity" ref={register} placeholder="Identificacion" />
+                        {errors.lastname && "Este campo es requerido"}
                     </div>
                 </div>
                 <div>
@@ -155,10 +171,12 @@ const FormularioChoferes = (props) => {
                     <div>
                         <label>Usuario</label>
                         <input name="user" ref={register} placeholder="Usuario" />
+                        {errors.lastname && "Este campo es requerido"}
                     </div>
                     <div>
                         <label>Contraseña</label>
                         <input name="password" type="password" ref={register} placeholder="Sponsor" />
+                        {errors.lastname && "Este campo es requerido"}
                     </div>
                 </div>
                 <div>

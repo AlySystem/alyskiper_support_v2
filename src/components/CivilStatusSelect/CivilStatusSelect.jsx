@@ -30,8 +30,7 @@ const CivilStatusSelect = (props) => {
             name={props.name}
             ref={props.register}
             onChange={props.onChange}
-            value={data.getCivilStatus[0]}
-            
+            defaultValue={data.getCivilStatus[0]}
         >
             {
                 data.getCivilStatus.map(x => {
