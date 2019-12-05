@@ -1,0 +1,25 @@
+
+.btnadd{
+    border: 2px;
+    border-radius: 1rem;
+    color: rgb(0, 250, 12) !important;
+    border-color: var(--color-secondary);
+    padding: .5rem;
+    &:hover{
+        background:rgb(26, 124, 6) !important;
+        border-color: rgb(26, 124, 6) !important;
+        color: #fff !important;
+    }
+}
+.btnedit{
+    border: 2px;
+    border-radius: 1rem;
+    color: rgb(250, 0, 0) !important;
+    border-color: var(--color-secondary);
+    padding: .5rem;
+    &:hover{
+        background: rgb(158, 3, 3) !important;
+        border-color: rgb(158, 3, 3) !important;
+        color: #fff !important;
+    }
+}
