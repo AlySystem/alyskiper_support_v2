@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 
-import { NUEVO_USUARIO } from '../../Mutatios';
+import { NUEVO_USUARIO } from '../../Mutations';
 import { Query, Mutation } from 'react-apollo';
-import { COUNTRIES, CITIES, CIVIL  } from '../../Queries';
+import { COUNTRIES, CITIES, CIVIL  } from '../../Queries'
 import Select from 'react-select';
 import Swal from 'sweetalert2';
 import RegisterAgent from './RegisterAgent';

@@ -126,7 +126,7 @@ const FilteredGrid = forwardRef((props, ref) => {
       size='small'
       columns={columns}
       dataSource={rows}
-      rowClassName={record => record.color.replace('#', '')}
+      // rowClassName={record => record.color.replace('#', '')}
       rowKey={record => record.id}
     //   scroll={{ x: 1155 }}
       responsive

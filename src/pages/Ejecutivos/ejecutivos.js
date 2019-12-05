@@ -4,7 +4,7 @@ import { COUNTRIES, CITIES, PROPIETARIOS_QUERY } from '../../Queries/index';
 //import { DESHABILITAR_PROPIETARIO } from '../../Mutatios';
 import { Query } from 'react-apollo';
 //import { Mutation } from 'react-apollo';
-import { Link } from '@reach/router';
+import { Link,navigate } from '@reach/router';
 import Select from 'react-select';
 //import Exito from '../Alertas/Exito';
 //import { COUNTRIES, CITIES } from '../../Queries';
@@ -66,12 +66,14 @@ class Ejecutivos extends Component {
     //         console.log(`Algo paso con`, menus);
     //     }
 
+    
 
     render() {
 
         return (
 
             <Fragment>
+                
                 <h1 className="font-weight-bold text-center mb-5 caja-texto-color-blanco font">Ejecutivos</h1>
 
                 <div className="form-row">

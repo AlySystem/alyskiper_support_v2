@@ -12,7 +12,7 @@ import gql from 'graphql-tag';
 //     phone
 //   }
 // }
-  
+
 // `;
 export const LOGOUT = gql`
 mutation logout ($id: Int!) {
@@ -167,3 +167,18 @@ mutation signin($input: signInDto!) {
 }
 `;
 
+export const CREAR_USUARIO = gql`
+mutation signup($input: UserInput!) {
+  signup(input: $input) {
+    data {
+      token
+    }
+    error
+    {
+      status
+      message
+    }    
+  }
+}
+  
+`;

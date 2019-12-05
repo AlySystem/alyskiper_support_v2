@@ -97,12 +97,30 @@ button {
     align-items: horizontal;
 }
 
+label {
+    color: white;
+}
+
+p {
+    color: white;
+}
+
 input {
     display: flex;
     border-radius: 10px;
     margin-bottom: 10px !important;
     padding: 10px;
     min-width: 100px;
+    color: black !important
+}
+
+select {
+    display: flex;
+    border-radius: 10px;
+    margin-bottom: 10px !important;
+    padding: 10px;
+    min-width: 100px;
+    color: black !important
 }
 
 button {
@@ -135,3 +153,4 @@ input[type=text] {
     display: block;
     text-align: left;
 }
+

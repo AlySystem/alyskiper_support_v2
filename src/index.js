@@ -35,12 +35,12 @@ const client = new ApolloClient({
 })
 
 ReactDOM.render(
-    <ApolloProvider client={client}>
-        <Router>
-            <Login path='/login' />
-            <Home path='/*' />
-        </Router>
-    </ApolloProvider>
+        <ApolloProvider client={client}>
+            <Router>
+                <Login path='/login' />
+                <Home path='/*' />
+            </Router>
+        </ApolloProvider>
     , document.getElementById('root'))
 
 serviceWorker.unregister()

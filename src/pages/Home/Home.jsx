@@ -9,6 +9,9 @@ import logo from '../../assets/img/A.png'
 import { navigate } from '@reach/router'
 import MainComercios from '../Comercios/MainComercios'
 import Ejecutivo from '../Ejecutivos/Ej'
+import NuevoEjecutivo from "../Ejecutivos/NuevoEjecutivo"
+import FormularioChoferes from '../Choferes/FormularioChoferes'
+import MainChoferes from '../Choferes/MainChoferes'
 const { Header, Content, Footer, Sider } = Layout;
 
 const Home = () => {
@@ -25,6 +28,7 @@ const Home = () => {
     }
 
     return (
+
         <Layout style={{ minHeight: '100vh' }}>
             <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
                 <div>
@@ -53,8 +57,11 @@ const Home = () => {
                         <Fragment>
                             <Router>
                                 <Dashboard path="/dashboard" />
-                                <MainComercios path="/comercios"/>
-                                <Ejecutivo path="/ejecutivos"/>
+                                <MainComercios path="/comercios" />
+                                <Ejecutivo path="/ejecutivos" />
+                                <NuevoEjecutivo path="/ejecutivos/nuevo" />
+                                <FormularioChoferes path="/choferes/nuevo" />
+                                <MainChoferes path="/choferes"/>
                             </Router>
                         </Fragment>
                     </div>

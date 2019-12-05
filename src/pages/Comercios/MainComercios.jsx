@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { COMERCIOS_QUERY } from '../../Queries/index'
 import { useQuery } from '@apollo/react-hooks'
 import { Link } from '@reach/router'
-import FilteredGrid from '../../components/filteredGrid/FIlteredGrid'
+import FilteredGrid from '../../components/filteredGrid/FilteredGrid'
 import '../../scss/loader/_loader.scss'
 
 const MainComercios = () => {

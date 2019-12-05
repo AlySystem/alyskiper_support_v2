@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useMutation } from "@apollo/react-hooks"
-import { NUEVO_AGENTE } from '../../Mutatios';
+import { NUEVO_AGENTE } from '../../Mutations'
 import Swal from 'sweetalert2';
 
 const RegisterAgent = (props) => {
