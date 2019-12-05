@@ -120,6 +120,7 @@ select {
     margin-bottom: 10px !important;
     padding: 10px;
     min-width: 100px;
+    width: 15vw;
     color: black !important
 }
 
@@ -152,5 +153,17 @@ input[type=text] {
     width: 100%;
     display: block;
     text-align: left;
+}
+
+input {
+    min-width: 50px;
+    width: 20vw;
+}
+
+.separador {
+    display: flex;
+    flex-direction: column;
+    //padding-left: 10px;
+    padding-right: 10px;
 }
 

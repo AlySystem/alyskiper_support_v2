@@ -108,59 +108,60 @@ const FormularioChoferes = (props) => {
     return (
         <div>
             <form id="frmChofer" onSubmit={handleSubmit(runForm)}>
-                <div>
-                    <h2><p>Datos Personales</p></h2>
-                    <div>
+                <h2><p>Datos Personales</p></h2>
+                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "vertical" }} >
+                    <div className="separador">
                         <label>Nombre</label>
                         <input name="firstname" ref={register} placeholder="Nombre" />
                         {errors.firstname && "Este campo es requerido"}
                     </div>
-                    <div>
+                    <div className="separador">
                         <label>Apellido</label>
                         <input name="lastname" ref={register} placeholder="Apellido" />
                         {errors.lastname && "Este campo es requerido"}
                     </div>
-                    <div>
+
+                    <div className="separador">
                         <label>Correo</label>
                         <input name="email" ref={register} placeholder="Correo" />
                         {errors.email && "Este campo es requerido"}
                     </div>
-                    <div>
+                    <div className="separador">
                         <label>SponsorId</label>
                         <input name="sponsor_id" ref={register} placeholder="Sponsor" />
                         {errors.sponsor_id && "Este campo es requerido"}
                     </div>
-                    <div>
+                    <div className="separador">
                         <label>Telefono</label>
                         <input name="phone" ref={register} placeholder="Telefono" />
                         {errors.phone && "Este campo es requerido"}
                     </div>
-                    <div>
+                    <div className="separador">
                         <label>Direccion</label>
                         <input name="address" ref={register} placeholder="Direccion" />
                         {errors.address && "Este campo es requerido"}
                     </div>
-                    <div>
+                    <div className="separador">
                         <label>Fecha de Nacimiento</label>
                         <input name="date_birth" ref={register} placeholder="Fecha de Nacimiento" type="date" />
                         {errors.lastname && "Este campo es requerido"}
                     </div>
-                    <div>
+                    <div className="separador">
                         <label>Pais</label>
                         <CountriesSelect register={register} name="country_id" onChange={onCountrySelectHandler} />
                         {errors.lastname && "Este campo es requerido"}
                     </div>
-                    <div>
+                    <div className="separador">
                         <label>Ciudad</label>
                         <CitiesSlect register={register} name="city_id" onChange={onCitiesSelectHandler} countryId={country} />
                         {errors.lastname && "Este campo es requerido"}
                     </div>
-                    <div>
+                    <div className="separador">
                         <label>Estado Civil</label>
                         <CiviStatusSelect register={register} name="idcivil_status" />
                         {errors.lastname && "Este campo es requerido"}
                     </div>
-                    <div>
+                    <div className="separador">
                         <label>Identificacion</label>
                         <input name="identity" ref={register} placeholder="Identificacion" />
                         {errors.lastname && "Este campo es requerido"}
