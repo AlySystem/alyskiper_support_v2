@@ -6,6 +6,7 @@ import CountriesSelect from "../../components/countriesSelect/CountriesSelect";
 import CitiesSelect from "../../components/CitiesSelect/CitiesSelect";
 import "../../scss/loader/_loader.scss";
 import { navigate } from "@reach/router"
+import { isNumber } from "util";
 const MainChoferes = () => {
     const CATEGORIA_DRIVER = 1;
 
@@ -18,7 +19,7 @@ const MainChoferes = () => {
 
     const [load, { called, loading, data }] = useLazyQuery(PROPIETARIOS_QUERY, {
         variables: { id: CATEGORIA_DRIVER, idcity: parseInt(cityId) },
-        onCompleted: data => {
+        onCompleted: () => {
             console.log(data);
             onLoadData();
         }
@@ -77,14 +78,20 @@ const MainChoferes = () => {
                     key: "4"
                 },
                 {
+                    title: "Correo",
+                    dataIndex: "email",
+                    key: "5",
+                    ...grid.current.getColumnSearch("email")
+                },
+                {
                     title: "Identificación",
                     dataIndex: "identity",
-                    key: "5"
+                    key: "6"
                 },
                 {
                     title: "Estado",
                     dataIndex: "state",
-                    key: "6"
+                    key: "7"
                 }
             ];
             console.log(columns);
@@ -94,21 +101,27 @@ const MainChoferes = () => {
 
             console.log("Entro al useEffect");
         }
-    };
+    }
 
     useEffect(() => {
-        load();
-    }, [cityId]);
+        if (cityId) {
+            load()
+        }
+    }, [cityId])
 
     const countrySelectHandler = e => {
-        setCountryId(e.currentTarget.value);
+        setCountryId(e.currentTarget.value)
     };
     const citiesSelectHandler = e => {
-        console.log("El city ID: ", e);
-        setCityId(e.currentTarget.value);
-        load();
-    };
+        console.log("El city ID: ", e)
+        setCityId(e.currentTarget.value)
+    }
 
+    const cityCallbackHandler = (id) => {
+        console.log("entro al callback")
+        setRows()
+        setCityId(id)
+    }
     return (
         <>
             <div>
@@ -121,14 +134,14 @@ const MainChoferes = () => {
                     <button onClick={() => { navigate('/choferes/nuevo') }} >Nuevo Chofer</button>
                 </div>
             </div>
-            <div style={{ display: "flex", paddingTop: "20px", paddingBottom:"10px"}}>
+            <div style={{ display: "flex", paddingTop: "20px", paddingBottom: "10px" }}>
                 <div>
                     <label>Pais</label>
                     <CountriesSelect onChange={countrySelectHandler} />
                 </div>
                 <div>
                     <label>Ciudad</label>
-                    <CitiesSelect countryId={countryId} onChange={citiesSelectHandler} />
+                    <CitiesSelect callback={cityCallbackHandler} countryId={countryId} onChange={citiesSelectHandler} />
                 </div>
             </div>
             <div>

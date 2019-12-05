@@ -119,9 +119,9 @@ const FilteredGrid = forwardRef((props, ref) => {
     setRows(props.rows)
     console.log('columns: ', columns)
     console.log('rows: ', rows)
-  })
+  },[props])
 
-  return (
+   return (
     <Table
       style={{ fontFamily: 'Lato, sans-serif' }}
       size='small'

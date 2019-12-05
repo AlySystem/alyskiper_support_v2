@@ -75,7 +75,7 @@ const FormularioChoferes = (props) => {
         /*const { token } = data
         console.log("el token: " + token)
         const id = jwtDecode(`Bearer ${token}`)*/
-        const { id } = data.data.createUser
+        const { id } = data.createUser
 
         const agentInput = {
             user_id: parseInt(id),
@@ -129,7 +129,7 @@ const FormularioChoferes = (props) => {
                     <div className="separador">
                         <label>SponsorId</label>
                         <input name="sponsor_id" ref={register} placeholder="Sponsor" />
-                        {errors.sponsor_id && "Este campo es requerido"}
+                        
                     </div>
                     <div className="separador">
                         <label>Telefono</label>
