@@ -108,6 +108,15 @@ mutation registerVehicleTrademark ($input: VehicleTrademarkInput) {
 } 
 `;
 
+export const NUEVO_ANIO = gql`
+mutation registerVehicleYear ($input: VehicleYearsInput){
+  registerVehicleYear(input: $input){
+    id
+    year
+  }
+}
+`;
+
 export const NUEVO_AGENTE = gql`
 mutation registerAgent ($input: AgentInput!) {
   registerAgent (input: $input) {

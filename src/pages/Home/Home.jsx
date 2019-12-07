@@ -12,6 +12,9 @@ import Ejecutivo from "../Ejecutivos/Ej";
 import NuevoEjecutivo from "../Ejecutivos/NuevoEjecutivo";
 import FormularioChoferes from "../Choferes/FormularioChoferes";
 import MainChoferes from "../Choferes/MainChoferes";
+import MainVehiculos from '../Vehiculos/MainVehiculos'
+import NuevoVehiculo from '../Vehiculos/NuevoVehiculo'
+import AsociarVehiculo from '../Vehiculos/AsociarVehiculo'
 // import logo2 from "../../assets/img/AlySkiper vectorizado y registrado SIN DEGRADAR (1).png";
 // import Img from "../../components/img/Img";
 const { Header, Content, Footer, Sider } = Layout;
@@ -68,6 +71,9 @@ const Home = props => {
               <NuevoEjecutivo path="/ejecutivos/nuevo" />
               <FormularioChoferes path="/choferes/nuevo" />
               <MainChoferes path="/choferes" />
+              <MainVehiculos path="/vehiculos"/>
+              <NuevoVehiculo path="/vehiculos/nuevo"/>
+              <AsociarVehiculo path="/vehiculos/asociar"/>
             </Router>
           </div>
         </Content>

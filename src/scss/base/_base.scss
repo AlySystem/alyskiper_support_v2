@@ -160,6 +160,11 @@ input {
     width: 20vw;
 }
 
+input[type=checkbox]{
+    width: auto !important;
+
+}
+
 .separador {
     display: flex;
     flex-direction: column;
@@ -167,3 +172,6 @@ input {
     padding-right: 10px;
 }
 
+.errorText {
+    color: red
+}

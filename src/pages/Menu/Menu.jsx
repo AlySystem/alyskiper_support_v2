@@ -69,7 +69,13 @@ const MenuMain = () => {
           }
         >
           <Menu.Item key="5">
-            <Link to="/choferes">Admin Drive</Link>
+            <Link to="/choferes">Choferes</Link>
+          </Menu.Item>
+          <Menu.Item key="8">
+            <Link to="/vehiculos">Vehiculos</Link>
+          </Menu.Item>
+          <Menu.Item key="9">
+            <Link to="/vehiculos/asociar">Asociar vehiculos</Link>
           </Menu.Item>
         </SubMenu>
         <SubMenu

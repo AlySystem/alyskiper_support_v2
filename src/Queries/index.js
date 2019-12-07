@@ -74,6 +74,10 @@ query skipercattravels {
     id
     name
     url_img_category
+    btaxy
+    bdelivery
+    btransporte
+    percentageagent
   }
 }
 `;
@@ -483,3 +487,52 @@ mutation Newcommerce($user: UserInput , $agent: AgentInput, $commerce: CommerceI
   }
 }
 `;
+
+export const USUARIO_POR_EMAIL = gql`
+query searchUserByEmail($email: String!){
+  searchUserByEmail(email: $email){
+    id
+    firstname
+    lastname
+    email
+    user
+    sponsor_id
+    phone
+    address
+    country {
+      name
+    }
+    city{
+      name
+    }
+    skiperWallet{
+      currencyID {
+        name
+      }
+    }
+
+  }
+}`
+
+export const VEHICULO_POR_PLACA = gql`
+query getVehicleByNumberPlate($numberplate: String!){
+  getVehicleByNumberPlate(numberplate:$numberplate){
+    id
+    skiperCatTravel{
+      name
+    }
+    vehicleTrademark{
+      name
+    }
+    vehicleYear{
+      year
+    }
+    vehicleCatalog{
+      name
+    }
+    vehicleModel{
+      name
+    }
+  }
+}
+`

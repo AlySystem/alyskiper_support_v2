@@ -6,7 +6,7 @@ import CountriesSelect from "../../components/countriesSelect/CountriesSelect";
 import CitiesSelect from "../../components/CitiesSelect/CitiesSelect";
 import "../../scss/loader/_loader.scss";
 import { navigate } from "@reach/router"
-import { isNumber } from "util";
+
 const MainChoferes = () => {
     const CATEGORIA_DRIVER = 1;
 
@@ -29,7 +29,10 @@ const MainChoferes = () => {
         if (data) {
             console.log({ id: CATEGORIA_DRIVER, idcity: parseInt(cityId) });
             console.log(data.getByCategoryAgentIdAndCityId);
-            if (data.getByCategoryAgentIdAndCityId.length == 0) return;
+            if (data.getByCategoryAgentIdAndCityId.length == 0) { 
+                setRows([])
+                return 
+            }
 
             const finalRows = data.getByCategoryAgentIdAndCityId[0].agents.map(
                 item => {
@@ -119,7 +122,6 @@ const MainChoferes = () => {
 
     const cityCallbackHandler = (id) => {
         console.log("entro al callback")
-        setRows()
         setCityId(id)
     }
     return (

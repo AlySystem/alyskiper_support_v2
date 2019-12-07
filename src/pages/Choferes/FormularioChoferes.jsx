@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import CountriesSelect from '../../components/countriesSelect/CountriesSelect'
 import CitiesSlect from '../../components/CitiesSelect/CitiesSelect'
 import CiviStatusSelect from '../../components/CivilStatusSelect/CivilStatusSelect'
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks'
 import useForm from 'react-hook-form'
 import * as yup from 'yup'
-import { NUEVO_USUARIO, NUEVO_AGENTE } from '../../Mutations/index'
+import { CREAR_USUARIO, NUEVO_AGENTE } from '../../Mutations/index'
 import { navigate } from '@reach/router'
 var jwtDecode = require('jwt-decode');
 
@@ -13,7 +13,7 @@ const FormularioChoferes = (props) => {
     const CATEGORIA_DRIVER = 1
     const [country, setCountry] = useState()
     const [city, setCity] = useState()
-    const [civilStatus, setCivilStatus] = useState()
+    //const [civilStatus, setCivilStatus] = useState()
 
     const schema = yup.object().shape({
         firstname: yup.string().required(),
@@ -25,7 +25,6 @@ const FormularioChoferes = (props) => {
         phone: yup.string().required(),
         identity: yup.string().required(),
         date_birth: yup.date().min(new Date(1901, 1, 1)).max(new Date(3000, 12, 31)),
-        // avatar: String,
         country_id: yup.number().positive(),
         city_id: yup.number().positive(),
         idcivil_status: yup.number().positive()
@@ -33,8 +32,29 @@ const FormularioChoferes = (props) => {
 
     const { register, handleSubmit, errors } = useForm({ validationSchema: schema })
 
-    const [addUser, { data: dataUser }] = useMutation(NUEVO_USUARIO)
-    const [addAgent, { data: dataAgent }] = useMutation(NUEVO_AGENTE)
+    const [addUser] = useMutation(CREAR_USUARIO, {
+        onCompleted: data => { 
+            if(data.signup.error){
+                alert(data.signup.error)
+            }else{
+                onUserAdded(data)
+            }
+        },
+        onError: (error) => { console.error(error) }
+    })
+    const [addAgent] = useMutation(NUEVO_AGENTE,{
+        onCompleted: ()=>{setIdentity()}
+    })
+    const [identity,setIdentity] = useState()
+    const onUserAdded = (data) =>{
+        console.log("logro insertar el user")
+        console.log(data)
+        if (data.signup.error) {
+            console.error(data.signup.error)
+        } else {
+            submitAgent(data, identity)
+        }
+    }
 
     const runForm = async (values) => {
         console.log(values)
@@ -55,30 +75,26 @@ const FormularioChoferes = (props) => {
         }
         console.log("input")
         console.log({ input: userInput })
-        try {
-            const data = await addUser({
-                variables: { input: userInput }
-            })
-            console.log("logro insertar el user")
-            console.log(data)
-            if (data.error) {
-                console.error(data.error)
-            } else {
-                submitAgent(data, values.identity)
-            }
-        } catch (error) {
-            console.log(error)
-        }
+        setIdentity(values.identity)
+        addUser({
+            variables: { input: userInput }
+        })
     }
 
     const submitAgent = async (data, identity) => {
-        /*const { token } = data
+        const { token } = data.signup.data
         console.log("el token: " + token)
-        const id = jwtDecode(`Bearer ${token}`)*/
-        const { id } = data.createUser
+        const id = jwtDecode(`Bearer ${token}`)
+        if(!data.signup){
+            console.log(data)
+            console.log("no ingreso usuario")
+            return
+        }
+        console.log(data)
+        //const { id } = data.signup
 
         const agentInput = {
-            user_id: parseInt(id),
+            user_id: parseInt(id.sub),
             state: true,
             categoryAgent_id: parseInt(CATEGORIA_DRIVER),
             identity: identity
@@ -129,7 +145,7 @@ const FormularioChoferes = (props) => {
                     <div className="separador">
                         <label>SponsorId</label>
                         <input name="sponsor_id" ref={register} placeholder="Sponsor" />
-                        
+
                     </div>
                     <div className="separador">
                         <label>Telefono</label>
