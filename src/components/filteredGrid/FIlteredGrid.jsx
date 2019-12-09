@@ -3,9 +3,9 @@ import React, {
   useState,
   useImperativeHandle,
   forwardRef
-} from 'react'
-import { Table, Input, Button, Icon } from 'antd'
-import Highlighter from 'react-highlight-words'
+} from "react";
+import { Table, Input, Button, Icon } from "antd";
+import Highlighter from "react-highlight-words";
 /**
  * Para utilizarlo fuera se debe hacer lo siguiente
  * 
@@ -23,11 +23,11 @@ import Highlighter from 'react-highlight-words'
  */
 
 const FilteredGrid = forwardRef((props, ref) => {
-  const [rows, setRows] = useState(props.rows)
-  const [columns, setColumns] = useState(props.columns)
-  const [searchInput, setSearchInfo] = useState()
-  const [searchText, setSearchText] = useState()
-  const [searchedColumn, setSearchedColumns] = useState()
+  const [rows, setRows] = useState(props.rows);
+  const [columns, setColumns] = useState(props.columns);
+  const [searchInput, setSearchInfo] = useState();
+  const [searchText, setSearchText] = useState();
+  const [searchedColumn, setSearchedColumns] = useState();
 
   const getColumnSearchProps = dataIndex => ({
     filterDropdown: ({
@@ -36,39 +36,39 @@ const FilteredGrid = forwardRef((props, ref) => {
       confirm,
       clearFilters
     }) => (
-        <div style={{ padding: 8 }}>
-          <Input
-            ref={node => {
-              setSearchInfo(node)
-            }}
-            placeholder={`Search ${dataIndex}`}
-            value={selectedKeys[0]}
-            onChange={e =>
-              setSelectedKeys(e.target.value ? [e.target.value] : [])
-            }
-            onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            style={{ width: 188, marginBottom: 8, display: 'block' }}
-          />
-          <Button
-            type='primary'
-            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            icon='search'
-            size='small'
-            style={{ width: 90, marginRight: 8 }}
-          >
-            Search
+      <div style={{ padding: 8 }}>
+        <Input
+          ref={node => {
+            setSearchInfo(node);
+          }}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={e =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{ width: 188, marginBottom: 8, display: "block" }}
+        />
+        <Button
+          type="primary"
+          onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          icon="search"
+          size="small"
+          style={{ width: 90, marginRight: 8 }}
+        >
+          Search
         </Button>
-          <Button
-            onClick={() => handleReset(clearFilters)}
-            size='small'
-            style={{ width: 90 }}
-          >
-            Reset
+        <Button
+          onClick={() => handleReset(clearFilters)}
+          size="small"
+          style={{ width: 90 }}
+        >
+          Reset
         </Button>
-        </div>
-      ),
+      </div>
+    ),
     filterIcon: filtered => (
-      <Icon type='search' style={{ color: filtered ? '#1890ff' : undefined }} />
+      <Icon type="search" style={{ color: filtered ? "#1890ff" : undefined }} />
     ),
     onFilter: (value, record) =>
       record[dataIndex]
@@ -77,54 +77,53 @@ const FilteredGrid = forwardRef((props, ref) => {
         .includes(value.toLowerCase()),
     onFilterDropdownVisibleChange: visible => {
       if (visible) {
-        if (searchInput)
-          setTimeout(() => searchInput.select());
+        if (searchInput) setTimeout(() => searchInput.select());
       }
     },
     render: text =>
       searchedColumn === dataIndex ? (
         <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
           searchWords={[searchText]}
           autoEscape
           textToHighlight={text.toString()}
         />
       ) : (
-          text
-        )
+        text
+      )
   });
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    confirm()
-    setSearchText(selectedKeys[0])
-    setSearchedColumns(dataIndex)
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumns(dataIndex);
     /*this.setState({ 
           searchText: selectedKeys[0],
           searchedColumn: dataIndex,
           });*/
-  }
+  };
   const handleReset = clearFilters => {
-    clearFilters()
-    setSearchText('')
+    clearFilters();
+    setSearchText("");
     //this.setState({ searchText: '' });
-  }
+  };
 
   useImperativeHandle(ref, () => ({
     getColumnSearch(dataIndex) {
       return getColumnSearchProps(dataIndex);
     }
-  }))
+  }));
 
   useEffect(() => {
-    setColumns(props.columns)
-    setRows(props.rows)
-    console.log('columns: ', columns)
-    console.log('rows: ', rows)
-  },[props])
+    setColumns(props.columns);
+    setRows(props.rows);
+    console.log("columns: ", columns);
+    console.log("rows: ", rows);
+  }, [props]);
 
-   return (
+  return (
     <Table
-      style={{ fontFamily: 'Lato, sans-serif' }}
-      size='small'
+      style={{ fontFamily: "Lato, sans-serif" }}
+      size="small"
       columns={columns}
       dataSource={rows}
       // rowClassName={record => record.color.replace('#', '')}
@@ -132,7 +131,7 @@ const FilteredGrid = forwardRef((props, ref) => {
       //   scroll={{ x: 1155 }}
       responsive
     />
-  )
-})
+  );
+});
 
-export default FilteredGrid
+export default FilteredGrid;

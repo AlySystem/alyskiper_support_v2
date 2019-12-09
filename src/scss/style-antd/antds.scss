@@ -51,3 +51,18 @@
     //     opacity: .7;
     // }
 }
+
+.ant-result-title {
+    font-family: 'Permanent Marker', cursive !important;
+    color: var(--color-secondary) !important;
+    font-size: 3rem !important;
+    line-height: 1.8;
+    text-align: center;
+}
+.ant-result-subtitle {
+    font-family: 'Permanent Marker', cursive !important;
+    color: var(--color-secondary)  !important;
+    font-size: 2rem !important;
+    line-height: 1.6;
+    text-align: center;
+}

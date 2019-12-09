@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import MenuMain from "../Menu/Menu";
 import Login from "../Login/Login";
 import { Layout, Breadcrumb } from "antd";
-import { Router } from "@reach/router";
+import { Router, Link } from "@reach/router";
 import Dashboard from "../Dashboard/Dashboard";
 import logo1 from "../../assets/img/AlySystem.png";
 import logo from "../../assets/img/A.png";
@@ -12,15 +12,44 @@ import Ejecutivo from "../Ejecutivos/Ej";
 import NuevoEjecutivo from "../Ejecutivos/NuevoEjecutivo";
 import FormularioChoferes from "../Choferes/FormularioChoferes";
 import MainChoferes from "../Choferes/MainChoferes";
-import MainVehiculos from '../Vehiculos/MainVehiculos'
-import NuevoVehiculo from '../Vehiculos/NuevoVehiculo'
-import AsociarVehiculo from '../Vehiculos/AsociarVehiculo'
+import MainVehiculos from "../Vehiculos/MainVehiculos";
+import NuevoVehiculo from "../Vehiculos/NuevoVehiculo";
+import AsociarVehiculo from "../Vehiculos/AsociarVehiculo";
+import { Result } from "antd";
+import Img from "../../components/img/Img";
+import logo8 from "../../assets/img/Loader-Skiper (1).gif";
 // import logo2 from "../../assets/img/AlySkiper vectorizado y registrado SIN DEGRADAR (1).png";
 // import Img from "../../components/img/Img";
 const { Header, Content, Footer, Sider } = Layout;
-
+const Jome = () => (
+  <Img
+    img={logo8}
+    width="300"
+    height="250"
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
+    }}
+  />
+);
+const Notfound = () => (
+  <Result
+    status="404"
+    title="404"
+    subTitle="La dirreccion no existe."
+    style={{ color: "white" }}
+    extra={<Link to="/">Regresar a inicio</Link>}
+  />
+);
 const Home = props => {
   const [collapsed, setCollapsed] = useState(false);
+  // const Name = () => {
+  //   if (session.searchUser != null) {
+  //     const name = session.searchUser.user
+  //     return <div>{name}</div>
+  //   }
+  // }
 
   const onCollapse = collapsed => {
     console.log(collapsed);
@@ -57,23 +86,24 @@ const Home = props => {
             <Img alt="Logo" width="1500" height="600" img={logo2} />
           </div> */}
           <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            {/* <Breadcrumb.Item style={{color: 'white'}}><Name /></Breadcrumb.Item> */}
           </Breadcrumb>
           <div
             className="back"
             style={{ padding: 24, background: "#fff", minHeight: 360 }}
           >
             <Router>
+              <Jome path="/" />
               <Dashboard path="/dashboard" />
               <MainComercios path="/comercios" />
               <Ejecutivo path="/ejecutivos" />
               <NuevoEjecutivo path="/ejecutivos/nuevo" />
               <FormularioChoferes path="/choferes/nuevo" />
               <MainChoferes path="/choferes" />
-              <MainVehiculos path="/vehiculos"/>
-              <NuevoVehiculo path="/vehiculos/nuevo"/>
-              <AsociarVehiculo path="/vehiculos/asociar"/>
+              <MainVehiculos path="/vehiculos" />
+              <NuevoVehiculo path="/vehiculos/nuevo" />
+              <AsociarVehiculo path="/vehiculos/asociar" />
+              <Notfound default />
             </Router>
           </div>
         </Content>

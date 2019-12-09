@@ -4,6 +4,7 @@ const Imgs = props => {
   return (
     <div>
       <img
+        src={props.img}
         alt={props.alt}
         width={props.width}
         height={props.height}
@@ -12,9 +13,8 @@ const Imgs = props => {
           justifyContent: "center",
           alignItems: "center"
         }}
-      >
-        {props.img}
-      </img>
+        className='imgchingona'
+      />
     </div>
   );
 };
