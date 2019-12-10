@@ -115,13 +115,16 @@ const FilteredGrid = forwardRef((props, ref) => {
   }))
 
   useEffect(() => {
-    setColumns(props.columns)
     setRows(props.rows)
-    console.log('columns: ', columns)
-    console.log('rows: ', rows)
-  },[props])
+    console.log('rows enviados: ', props.rows)
+  }, [props.rows])
 
-   return (
+  useEffect(() => {
+    setColumns(props.columns)
+    console.log('columns enviadas: ', props.columns)
+  }, [props.columns])
+
+  return (
     <Table
       style={{ fontFamily: 'Lato, sans-serif' }}
       size='small'
