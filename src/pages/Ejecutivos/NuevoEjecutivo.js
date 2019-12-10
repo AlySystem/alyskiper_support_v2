@@ -170,7 +170,7 @@ class NuevoEjecutivo extends Component {
         return (
             <Fragment>
                 
-                <h1 className="font-weight-bold text-center caja-texto-color-blanco titless">Nuevo Ejecutivo</h1>
+                <h1 style={{color:'white', fontSize: '2rem'}}>Nuevo Ejecutivo</h1>
                 {this.state.iduser === 0 ? (
                     <div className="row justify-content-center">
                         <Mutation 

@@ -239,7 +239,7 @@ const Ejecutivo = props => {
                 console.log(item);
                 console.log(item.state);
                 return (
-                  <Fragment>
+                  <>
                     <table
                       className="subtabla"
                       style={{ fontFamily: "Lato, sans-serif" }}
@@ -264,7 +264,6 @@ const Ejecutivo = props => {
                               {item.categoryAgent.name}
                             </span>
                           </td>
-
                           <td>
                             {item.state ? (
                               <span
@@ -282,7 +281,7 @@ const Ejecutivo = props => {
                         </tr>
                       </tbody>
                     </table>
-                  </Fragment>
+                  </>
                 );
               });
             }}
