@@ -54,6 +54,10 @@ const MainVehiculos = () => {
     const [loadVehicleData] = useLazyQuery(VEHICULO_USUARIO, {
         variables: { id: userId },
         onCompleted: (vehiculos) => {
+            if(!vehiculos.getVehicleByUserId){
+                console.log("no hay vehiculos asociados")
+                return
+            }
             console.log("los vehiculos", vehiculos)
             const finalRows = [{
                 license_plate: vehiculos.getVehicleByUserId.license_plate,
