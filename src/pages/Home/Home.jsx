@@ -15,6 +15,9 @@ import MainChoferes from "../Choferes/MainChoferes";
 import MainVehiculos from '../Vehiculos/MainVehiculos'
 import NuevoVehiculo from '../Vehiculos/NuevoVehiculo'
 import AsociarVehiculo from '../Vehiculos/AsociarVehiculo'
+import NuevoWallet from '../Wallet/NuevoWallet'
+import MainWallet from '../Wallet/MainWallet'
+import RecargaWallet from '../Wallet/RecargaWallet'
 // import logo2 from "../../assets/img/AlySkiper vectorizado y registrado SIN DEGRADAR (1).png";
 // import Img from "../../components/img/Img";
 const { Header, Content, Footer, Sider } = Layout;
@@ -74,6 +77,9 @@ const Home = props => {
               <MainVehiculos path="/vehiculos"/>
               <NuevoVehiculo path="/vehiculos/nuevo"/>
               <AsociarVehiculo path="/vehiculos/asociar"/>
+              <NuevoWallet path="/wallet/nuevo"/>
+              <MainWallet path="/wallet"/>
+              <RecargaWallet path="/wallet/recarga"/>
             </Router>
           </div>
         </Content>

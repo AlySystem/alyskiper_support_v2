@@ -536,3 +536,30 @@ query getVehicleByNumberPlate($numberplate: String!){
   }
 }
 `
+
+export const MONEDAS = gql`
+query currency {
+  currency {
+    id
+    name
+  }
+}
+`
+
+export const OBTENER_WALLET_DE_USUARIO = gql`
+query getAllSkiperWalletsByUserId($iduser: Int!) {
+  getAllSkiperWalletsByUserId(iduser: $iduser)
+  {
+    id
+    amount
+    currencyID{
+        id
+        name
+    }
+    countryID{
+        id
+        name
+    }
+  }
+}
+`

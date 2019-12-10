@@ -21,7 +21,7 @@ const CountriesSelect = ({ onChange, register, options, name, ...rest }) => {
     }, [data])
 
     if (!data) {
-        return (<></>)
+        return (<select></select>)
     }
 
     return (
@@ -29,7 +29,6 @@ const CountriesSelect = ({ onChange, register, options, name, ...rest }) => {
             name={name}
             ref={register}
             onChange={onChange}
-            ref={register}
             {...rest}
         >
             {

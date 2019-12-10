@@ -191,3 +191,38 @@ mutation signup($input: UserInput!) {
 }
   
 `;
+
+export const NUEVO_WALLET = gql`
+mutation registerSkiperWallet($input: SkiperWalletInput!){
+  registerSkiperWallet(input:$input){
+    id
+    amount
+    date_in
+    minimun
+    bretirar   
+  }
+}
+`
+export const REGISTRAR_TRANSACCION_WALLET = gql`
+mutation registerDepositWallet(
+  $idwallet: Int!,
+  $idtransaction: Int!,
+  $idpayment_method: Int!,
+  $deposit: Float!,
+  $description: String!
+) {
+    registerDepositWallet(
+      idwallet: $idwallet,
+      idtransaction: $idtransaction,
+      idpayment_method: $idpayment_method,
+      deposit: $deposit,
+      description: $description
+    ){
+      id
+      amount
+      date_in
+      minimun
+      bretirar
+    }
+  }
+`

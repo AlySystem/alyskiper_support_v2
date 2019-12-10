@@ -1,6 +1,6 @@
 import React from 'react'
 import { CIVIL } from '../../Queries'
-import { forwardRef, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 
 const CivilStatusSelect = (props) => {
