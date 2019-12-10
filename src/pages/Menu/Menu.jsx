@@ -82,6 +82,24 @@ const MenuMain = () => {
           key="sub4"
           title={
             <span>
+              <Icon type="wallet" theme="filled" />
+              <span>Wallets</span>
+            </span>
+          }>
+          <Menu.Item key="1">
+            <Link to="/wallet">Ver Wallets</Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Link to="/wallet/nuevo">Nuevo</Link>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <Link to="/wallet/recarga">Recargar</Link>
+          </Menu.Item>
+        </SubMenu>
+        <SubMenu
+          key="sub5"
+          title={
+            <span>
               <Icon type="file-text" theme="filled" />
               <span>Reportes</span>
             </span>

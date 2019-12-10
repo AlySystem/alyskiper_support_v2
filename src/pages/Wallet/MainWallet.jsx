@@ -8,15 +8,15 @@ const MainWallet = () => {
     const columns = [
         {
             title: 'Moneda',
-            dataindex: 'currency',
+            dataIndex: 'currency',
             key: 1
         }, {
             title: 'Pais',
-            dataindex: 'country',
+            dataIndex: 'country',
             key: 2
         }, {
             title: 'Saldo',
-            dataindex: 'amount',
+            dataIndex: 'amount',
             key: 3
         }
     ]
