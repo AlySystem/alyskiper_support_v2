@@ -11,8 +11,8 @@ var jwtDecode = require("jwt-decode");
 
 const FormularioChoferes = props => {
   const CATEGORIA_DRIVER = 1
-  const [country, setCountry] = useState();
-  const [city, setCity] = useState();
+  const [country, setCountry] = useState()
+  const [city, setCity] = useState()
   //const [civilStatus, setCivilStatus] = useState()
 
   const schema = yup.object().shape({
