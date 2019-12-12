@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import CountriesSelect from "../../components/countriesSelect/CountriesSelect";
 import CitiesSlect from "../../components/CitiesSelect/CitiesSelect";
 import CiviStatusSelect from "../../components/CivilStatusSelect/CivilStatusSelect";
-import { useMutation, useLazyQuery } from "@apollo/react-hooks";
+import { useMutation, useLazyQuery, useApolloClient } from "@apollo/react-hooks";
 import useForm from "react-hook-form";
 import * as yup from "yup";
 import { CREAR_USUARIO, NUEVO_AGENTE } from "../../Mutations/index";
 import { USUARIO_POR_EMAIL } from '../../Queries/index'
 import { navigate } from "@reach/router";
-import { userInfo } from "os";
+
+
+
 var jwtDecode = require("jwt-decode");
 /**
  * Crea un formulario con los datos basicos para la creacion de un user y un agent
@@ -25,13 +27,17 @@ var jwtDecode = require("jwt-decode");
  * 
  */
 const FormularioUsers = props => {
+    /*-- Constantes de componente --*/
     const CATEGORIA = props.categoria
     const ON_SUCCESS_NAVIGATE_TO = props.navigateTo
 
-    const [sponsorUserInfo, setSponsorUserInfo] =useState()
-    const [country, setCountry] = useState();
-    const [city, setCity] = useState();
+    /*-- variables de estado --*/
+    const [country, setCountry] = useState()
+    const [city, setCity] = useState()
+    const [formData, setFormData] = useState()
+    const [identity, setIdentity] = useState()
 
+    /*-- Esquema yup para validacion de form --*/
     const schema = yup.object().shape({
         firstname: yup.string().required(),
         lastname: yup.string().required(),
@@ -53,44 +59,79 @@ const FormularioUsers = props => {
         idcivil_status: yup.number().positive()
     });
 
+    /* objetos basicos de react-hook-form  */
     const { register, handleSubmit, errors } = useForm({
         validationSchema: schema
     })
 
+    /* Mutation de creacion usuario agente y query de usuario por email */
+    const [findUserInfo] = useLazyQuery(USUARIO_POR_EMAIL, {
+        onCompleted: (data) => { onCompletedSponsorIdFind(data.searchUserByEmail) },
+        onError: (err) => { console.error(err) }
+    })
     const [addUser] = useMutation(CREAR_USUARIO, {
         onCompleted: data => {
             if (data.signup.error) {
                 alert(data.signup.error);
             } else {
+                console.log("Usuario ingresado correctamente")
                 onUserAdded(data);
             }
         },
         onError: error => {
+            console.log("Error al ingresar el usuario")
             console.error(error);
         }
     })
     const [addAgent] = useMutation(NUEVO_AGENTE, {
-        onCompleted: () => {
-            setIdentity();
+        onCompleted: (data) => {
+            console.log("Agente ingresado correctamente")
+            if(data) navigate(ON_SUCCESS_NAVIGATE_TO)
+        },
+        onError: (err) => {
+            console.log("Error al ingresar el Agente")
+            console.error(err)
         }
-    })
-    const [getUserInfo,{data:userInfoData}] = useLazyQuery(USUARIO_POR_EMAIL,{
-        onCompleted: (data) => { setSponsorUserInfo(data.searchUserByEmail) }
+
     })
 
-    const [identity, setIdentity] = useState();
+    /* evento que se dispara al insertar el usuario correctamente */
     const onUserAdded = data => {
-        console.log("logro insertar el user");
-        console.log(data);
+        console.log(data)
         if (data.signup.error) {
-            console.error(data.signup.error);
+            console.error(data.signup.error)
         } else {
             submitAgent(data, identity);
         }
     }
 
-    const runForm = async values => {
-        console.log(values);
+    /* validacion de email */
+    const emailValido = (email) => {
+        console.log("email desde funcion ", email)
+        return /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*/g.test(email)
+    }
+
+    /* evento que se dipara al realizar la query de usuario */
+    const onCompletedSponsorIdFind = (data) => {
+        if (data) {
+            const userData = formData
+            userData.sponsor_id = data.id
+            console.log("userData: ", userData)
+            setFormData(userData)
+            addUser({
+                variables: {
+                    input: userData
+                }
+            })
+        } else {
+            alert("El correo del sponsor no existe")
+            console.log("El correo del sponsor no existe")
+        }
+    }
+
+    /* Evento que se dispara al reaizar submit al form */
+    const valuesHandler = values => {
+        console.log(values)
         const userInput = {
             firstname: values.firstname,
             lastname: values.lastname,
@@ -100,32 +141,41 @@ const FormularioUsers = props => {
             address: values.address,
             phone: values.phone,
             date_birth: values.date_birth,
+            // identity: values.identity,
             // avatar: String,
             country_id: parseInt(values.country_id),
             city_id: parseInt(values.city_id),
             idcivil_status: parseInt(values.idcivil_status)
-        };
-        console.log("input");
-        console.log({ input: userInput });
-        setIdentity(values.identity);
-
-        let emailValidator = yup.object().shape({
-            sponsor_email: yup.string().email()
-        })
-        let sponsorEmailValido = await emailValidator.isValid({
-            sponsor_email:values.sponsor_email
-        })
-
-        if(sponsorEmailValido){
-            await getUserInfo({variables: { email: values.sponsor_email }})
-            userInput.sponsor_id = userInfoData.id
         }
-        
-        addUser({
-            variables: { input: userInput }
-        });
-    };
+        console.log("input");
+        console.log({ input: userInput })
+        setIdentity(values.identity)
+        setFormData(userInput)
 
+        console.log("email:", values.sponsor_email.trim())
+        if (values.sponsor_email.trim() == '') {
+            userInput.sponsor_id=1
+            console.log(userInput)
+            addUser({
+                variables: {
+                    input: userInput
+                }
+            })
+        } else {
+            if (emailValido(values.sponsor_email.trim())) {
+                console.log("El email es valido")
+                findUserInfo({
+                    variables: {
+                        email: values.sponsor_email
+                    }
+                })
+            } else {
+                console.log("El email no es valido")
+            }
+        }
+    }
+
+    /* evento que se llama cuando se creo el nuevo usuario */
     const submitAgent = async (data, identity) => {
         const { token } = data.signup.data;
         console.log("el token: " + token);
@@ -156,15 +206,15 @@ const FormularioUsers = props => {
         } catch (error) {
             console.log(error);
         }
-    };
+    }
 
     const onCountrySelectHandler = e => {
         setCountry(e.currentTarget.value);
-    };
+    }
 
     const onCitiesSelectHandler = e => {
         setCity(e.currentTarget.value);
-    };
+    }
 
     if (!CATEGORIA && !ON_SUCCESS_NAVIGATE_TO) {
         return (<><p><h2 className="errorText">Debe definir la categoria y el navigate</h2></p></>)
@@ -172,7 +222,7 @@ const FormularioUsers = props => {
 
     return (
         <div>
-            <form id="frmChofer" onSubmit={handleSubmit(runForm)}>
+            <form id="frmChofer" onSubmit={handleSubmit(valuesHandler)}>
                 <h2>
                     <p>{props.titulo}</p>
                 </h2>
@@ -268,7 +318,7 @@ const FormularioUsers = props => {
                             name="password"
                             type="password"
                             ref={register}
-                            placeholder="Sponsor"
+                            placeholder="Password"
                         />
                         {errors.lastname && "Este campo es requerido"}
                     </div>
