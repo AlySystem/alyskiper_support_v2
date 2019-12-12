@@ -5,7 +5,7 @@ import useForm from 'react-hook-form'
 import * as yup from 'yup'
 import { useMutation } from '@apollo/react-hooks'
 import { REGISTRAR_TRANSACCION_WALLET } from '../../Mutations/index'
-import {navigate} from '@reach/router'
+import { navigate } from '@reach/router'
 
 const RecargaWallet = () => {
 
@@ -15,9 +15,9 @@ const RecargaWallet = () => {
     })
 
     const { register, handleSubmit, errors } = useForm({ validationSchema: schema })
-    const [addTransaction, { data }] = useMutation(REGISTRAR_TRANSACCION_WALLET,{
-        onCompleted:(data) => {console.log("Logro realizar la transaccion");console.log(data); navigate('/wallet')},
-        onError: (err) => {console.error(err)}
+    const [addTransaction, { data }] = useMutation(REGISTRAR_TRANSACCION_WALLET, {
+        onCompleted: (data) => { console.log("Logro realizar la transaccion"); console.log(data); navigate('/wallet') },
+        onError: (err) => { console.error(err) }
     })
 
     const TRANSACTION_ID_RECARGA = 5
@@ -40,19 +40,19 @@ const RecargaWallet = () => {
         }
 
         console.log({
-            idwallet : values.walletId,
-            idtransaction : TRANSACTION_ID_RECARGA,
-            idpayment_method : PAYMENT_METHOD,
-            deposit : values.amount,
-            description : 'Recarga de' + values.amount
+            idwallet: values.walletId,
+            idtransaction: TRANSACTION_ID_RECARGA,
+            idpayment_method: PAYMENT_METHOD,
+            deposit: values.amount,
+            description: 'Recarga de' + values.amount
         })
         addTransaction({
             variables: {
-                idwallet : values.walletId,
-                idtransaction : TRANSACTION_ID_RECARGA,
-                idpayment_method : PAYMENT_METHOD,
-                deposit : values.amount,
-                description : 'Rearga'
+                idwallet: values.walletId,
+                idtransaction: TRANSACTION_ID_RECARGA,
+                idpayment_method: PAYMENT_METHOD,
+                deposit: values.amount,
+                description: 'Rearga'
             }
         })
     }
@@ -63,19 +63,22 @@ const RecargaWallet = () => {
                 <UserInfo callback={userInfoHandler} />
                 {error && <h2><p>{error}</p></h2>}
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <label>Wallet a recargar</label>
-                    <WalletsFromUserSelect register={register} name="walletId" userId={userId} />
-                    {errors.walletId && <h4><p>"Debe seleccionar un wallet"</p></h4>}
-                    <label>Monto</label>
-                    <input name="amount" ref={register} type="number" />
-                    {errors.amount && <h4><p>Ingresa un monto</p></h4>}
-                </div>
-                <div>
-                    <button type="submit" >Realizar Recarga</button>
-                </div>
-            </form>
+
+            <div align="center">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div>
+                        <label>Wallet a recargar</label>
+                        <WalletsFromUserSelect register={register} name="walletId" userId={userId} />
+                        {errors.walletId && <h4><p>"Debe seleccionar un wallet"</p></h4>}
+                        <label>Monto</label>
+                        <input name="amount" ref={register} type="number" />
+                        {errors.amount && <h4><p>Ingresa un monto</p></h4>}
+                    </div>
+                    <div>
+                        <button type="submit" >Realizar Recarga</button>
+                    </div>
+                </form>
+            </div>
         </>
     )
 }
