@@ -10,7 +10,7 @@ import { navigate } from "@reach/router";
 import MainComercios from "../Comercios/MainComercios";
 import MainEjecutivos from "../Ejecutivos/MainEjecutivos";
 import NuevoEjecutivo from "../Ejecutivos/NuevoEjecutivo";
-import FormularioChoferes from "../Choferes/FormularioChoferes";
+import NuevoChofer from '../Choferes/NuevoChofer'
 import MainChoferes from "../Choferes/MainChoferes";
 import MainVehiculos from "../Vehiculos/MainVehiculos";
 import NuevoVehiculo from "../Vehiculos/NuevoVehiculo";
@@ -101,7 +101,7 @@ const Home = props => {
               <MainComercios path="/comercios" />
               <MainEjecutivos path="/ejecutivos" />
               <NuevoEjecutivo path="/ejecutivos/nuevo" />
-              <FormularioChoferes path="/choferes/nuevo" />
+              <NuevoChofer path="/choferes/nuevo" />
               <MainChoferes path="/choferes" />
               <MainVehiculos path="/vehiculos" />
               <NuevoVehiculo path="/vehiculos/nuevo" />

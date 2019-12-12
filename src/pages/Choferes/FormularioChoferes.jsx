@@ -9,6 +9,9 @@ import { CREAR_USUARIO, NUEVO_AGENTE } from "../../Mutations/index";
 import { navigate } from "@reach/router";
 var jwtDecode = require("jwt-decode");
 
+/**
+ * @deprecated Se utiliza ahora el component/FormularioUser.jsx
+ */
 const FormularioChoferes = props => {
   const CATEGORIA_DRIVER = 1
   const [country, setCountry] = useState()

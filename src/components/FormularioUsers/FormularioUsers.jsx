@@ -17,14 +17,15 @@ var jwtDecode = require("jwt-decode");
  * ya utiliza la mutation y la query correspondiente para la creacion de todos los agetn
  * recibe de parametro la categoria que se va a crear
  * 
- * @param props.CATEGORIA la categoria del Agente que se va a crear
+ * @param props.categoria la categoria del Agente que se va a crear
  *                        1: DRIVE
  *                        2: EXCECUTIVE
  *                        3: COMMERCE
  * 
+ * @param props.navigateTo la ruta a donde debera regresar una vez haya realizado un ingreso correcto
+ * @param porps.titulo titulo que mostrara el form
  * 
- * @returns the complete form
- * 
+ * @returns el formulario completo
  */
 const FormularioUsers = props => {
     /*-- Constantes de componente --*/
