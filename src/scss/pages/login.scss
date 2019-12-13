@@ -5,12 +5,14 @@
 #components-form-demo-normal-login .login-form-button {
     width: 100%;
 }
-  #components-form-demo-normal-login .login-form-forgot {
-    float: right;
-  }
-  #components-form-demo-normal-login .login-form-button {
-    width: 100%;
-  }
+
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
 
 // .containerp{
 //     max-width: 300px;
@@ -30,10 +32,13 @@
     list-style: none;
     -webkit-font-feature-settings: 'tnum';
     font-feature-settings: 'tnum', "tnum";
-    max-width: 300px;
+    width: 10vw;
+    min-width: 300px;
+    max-width: 400px;
+    max-height: 270px;
     left: 0;
     top: 0;
-    transform: translate(180%,65%);
+    //transform: translate(180%,65%);
     padding: 1rem !important;
 }
 
@@ -46,7 +51,7 @@
   color: #fff;
   background-color: #1890ff;
   border-color: #1890ff;
-  margin-left: 35% !important;
+  margin-left: 60% !important;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
   -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
@@ -70,4 +75,14 @@
   right: 0 !important;
   bottom: 0 !important;
   margin: auto !important;
+}
+
+.loginContainer {
+  display:flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  align-content: center;
 }

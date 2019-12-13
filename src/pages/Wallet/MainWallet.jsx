@@ -47,7 +47,11 @@ const MainWallet = () => {
 
     const onBuscarClickHandler = (userData) => {
         console.log(userData)
-
+        if(!userData) {
+            console.log("usuario no existente")
+            return 
+        }
+        
         loadWallets({
             variables: {
                 iduser: userData.id

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import MenuMain from "../Menu/Menu";
 import Login from "../Login/Login";
 import { Layout, Breadcrumb } from "antd";
@@ -8,9 +8,9 @@ import logo1 from "../../assets/img/AlySystem.png";
 import logo from "../../assets/img/A.png";
 import { navigate } from "@reach/router";
 import MainComercios from "../Comercios/MainComercios";
-import Ejecutivo from "../Ejecutivos/Ej";
+import MainEjecutivos from "../Ejecutivos/MainEjecutivos";
 import NuevoEjecutivo from "../Ejecutivos/NuevoEjecutivo";
-import FormularioChoferes from "../Choferes/FormularioChoferes";
+import NuevoChofer from '../Choferes/NuevoChofer'
 import MainChoferes from "../Choferes/MainChoferes";
 import MainVehiculos from "../Vehiculos/MainVehiculos";
 import NuevoVehiculo from "../Vehiculos/NuevoVehiculo";
@@ -99,9 +99,9 @@ const Home = props => {
               <Jome path="/" />
               <Dashboard path="/dashboard" />
               <MainComercios path="/comercios" />
-              <Ejecutivo path="/ejecutivos" />
+              <MainEjecutivos path="/ejecutivos" />
               <NuevoEjecutivo path="/ejecutivos/nuevo" />
-              <FormularioChoferes path="/choferes/nuevo" />
+              <NuevoChofer path="/choferes/nuevo" />
               <MainChoferes path="/choferes" />
               <MainVehiculos path="/vehiculos" />
               <NuevoVehiculo path="/vehiculos/nuevo" />

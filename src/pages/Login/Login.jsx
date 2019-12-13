@@ -163,7 +163,7 @@ const Login = props => {
   }
 
   return (
-    <div>
+    <div className="loginContainer">
       <Particles params={par} className="animates" />
       <Form onSubmit={handleSubmit} className="formu">
         <Form.Item style={{ alignItems: "center" }}>
@@ -212,7 +212,7 @@ const Login = props => {
             htmlType="submit"
             className="login-form-button"
           >
-            Iniciar seccion
+            Iniciar Sesion
           </Button>
         </Form.Item>
         {/* <div>
