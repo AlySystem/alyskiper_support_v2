@@ -6,8 +6,11 @@ import CountriesSelect from "../../components/countriesSelect/CountriesSelect";
 import CitiesSelect from "../../components/CitiesSelect/CitiesSelect";
 import "../../scss/loader/_loader.scss";
 import { navigate } from "@reach/router";
+//import logger from '../../utils/LogConfig'
 
 const MainChoferes = () => {
+
+  //logger.debug("-- prueba del log ---")
   const CATEGORIA_DRIVER = 1;
 
   const [countryId, setCountryId] = useState();
@@ -23,7 +26,7 @@ const MainChoferes = () => {
       console.log(data);
       onLoadData();
     }
-  });
+  })
 
   const onLoadData = () => {
     if (data) {
@@ -104,7 +107,7 @@ const MainChoferes = () => {
 
       console.log("Entro al useEffect");
     }
-  };
+  }
 
   useEffect(() => {
     if (cityId) {
@@ -114,11 +117,11 @@ const MainChoferes = () => {
 
   const countrySelectHandler = e => {
     setCountryId(e.currentTarget.value);
-  };
+  }
   const citiesSelectHandler = e => {
     console.log("El city ID: ", e);
     setCityId(e.currentTarget.value);
-  };
+  }
 
   const cityCallbackHandler = id => {
     console.log("entro al callback");

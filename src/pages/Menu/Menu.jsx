@@ -103,6 +103,19 @@ const MenuMain = () => {
           key="sub5"
           title={
             <span>
+              <Icon type="user" theme="outlined" />
+              <span>Usuarios</span>
+            </span>
+          }>
+          <Menu.Item key="1">
+            <Link to="/usuarios/actualizarCategoria"><div>Asignar Cat. a Usuario</div></Link>
+          </Menu.Item>
+
+        </SubMenu>
+        <SubMenu
+          key="sub6"
+          title={
+            <span>
               <Icon type="file-text" theme="filled" />
               <span>Reportes</span>
             </span>

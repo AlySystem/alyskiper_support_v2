@@ -48,7 +48,7 @@ const UserInfo = (props) => {
                 </tr>
                 <tr>
                     <td><label><b>Ciudad:</b></label></td>
-                    <td><label id="lblcity" >{usuarioObject ? usuarioObject.city.name : ''}</label></td>
+                    <td><label id="lblcity" >{usuarioObject ? usuarioObject.city ? usuarioObject.city.name : '' : '' }</label></td>
                 </tr>
             </tbody>
         </table>)

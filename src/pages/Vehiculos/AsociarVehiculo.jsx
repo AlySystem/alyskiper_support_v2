@@ -39,6 +39,7 @@ const AsociarVehiculo = () => {
         onError: (error) => console.error(error),
         onCompleted: (data) => {
             console.log("El objeto agent: ", data)
+            alert("Asociado correctamente")
             navigate('/vehiculos')
         }
     })

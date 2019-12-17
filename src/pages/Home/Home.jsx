@@ -18,6 +18,7 @@ import AsociarVehiculo from "../Vehiculos/AsociarVehiculo";
 import NuevoWallet from '../Wallet/NuevoWallet'
 import MainWallet from '../Wallet/MainWallet'
 import RecargaWallet from '../Wallet/RecargaWallet'
+import ActualizarUser from '../ActualizarUser/ActualizarUser'
 import { Result } from "antd";
 import Img from "../../components/img/Img";
 import logo8 from "../../assets/img/Loader-Skiper (1).gif";
@@ -110,6 +111,7 @@ const Home = props => {
               <Notfound default />
               <MainWallet path="/wallet"/>
               <RecargaWallet path="/wallet/recarga"/>
+              <ActualizarUser path="/usuarios/actualizarCategoria"/>
             </Router>
           </div>
         </Content>

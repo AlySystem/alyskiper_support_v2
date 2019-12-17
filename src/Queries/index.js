@@ -569,7 +569,10 @@ query searchAgentByIdUser($iduser: Int!) {
   searchAgentByIdUser(iduser: $iduser){
     id,
     state,
-    identity
+    identity,
+    categoryAgent {
+      name
+    }
   }
 }
 `

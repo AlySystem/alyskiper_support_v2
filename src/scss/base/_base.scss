@@ -62,10 +62,6 @@ p {
     padding: 0;
 }
 
-button {
-    margin: 0;
-}
-
 .card {
     /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -133,7 +129,8 @@ button {
     border-radius: 10px;
     display: inline-block;
     border: none;
-    transition: all 0.4s ease 0s
+    transition: all 0.4s ease 0s;
+    margin-right: 5px !important;
 }
 
 button::hover {
