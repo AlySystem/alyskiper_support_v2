@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { useLazyQuery, useMutation } from "@apollo/react-hooks"
-import { VEHICULO_POR_PLACA, USUARIO_POR_EMAIL, AGENTE_POR_USUARIO } from '../../Queries/index'
+import React, { useState, useEffect } from 'react'
+import { useLazyQuery } from "@apollo/react-hooks"
+import { VEHICULO_POR_PLACA, USUARIO_POR_EMAIL } from '../../Queries/index'
 import { REGISTRAR_SKIPER_VEHICLE_AGENT } from '../../Mutations/index'
-import { navigate } from '@reach/router'
+
 const AsociarVehiculo = () => {
     let placa
     let email
@@ -12,46 +12,23 @@ const AsociarVehiculo = () => {
 
     const [vehiculoObject, setVehiculoObject] = useState()
     const [usuarioObject, setUsuarioObject] = useState()
-    const [agenteObjet, setAgenteObjet] = useState()
-
-    const [loadAgentData] = useLazyQuery(AGENTE_POR_USUARIO, {
-        onError: (error) => console.error(error),
-        onCompleted: (data) => setAgenteObjet(data.searchAgentByIdUser)
-    })
 
     const [loadUserData] = useLazyQuery(USUARIO_POR_EMAIL, {
         onError: (error) => console.error(error),
-        onCompleted: (data) => {
-            setUsuarioObject(data.searchUserByEmail)
-            loadAgentData({
-                variables: {
-                    iduser: data.searchUserByEmail.id
-                }
-            })
-        }
+        onCompleted: (data) => setUsuarioObject(data.searchUserByEmail)
     })
     const [loadVehicleData] = useLazyQuery(VEHICULO_POR_PLACA, {
         onError: (error) => console.error(error),
         onCompleted: (data) => setVehiculoObject(data.getVehicleByNumberPlate)
     })
 
-    const [addVehicleToAgent] = useMutation(REGISTRAR_SKIPER_VEHICLE_AGENT, {
-        onError: (error) => console.error(error),
-        onCompleted: (data) => {
-            console.log("El objeto agent: ", data)
             alert("Asociado correctamente")
-            navigate('/vehiculos')
-        }
-    })
-
     const btnAsociarHandler = () => {
         console.log("el objeto usuario")
         console.log(usuarioObject)
         console.log("el objeto vehiculo")
         console.log(vehiculoObject)
-        console.log("el objeto agente")
-        console.log(agenteObjet)
-        console.log("isOwner: ", isOwner.checked)
+        console.log("isOwner",isOwner.checked)
         if (!usuarioObject) {
             error = "usuario no esta definido"
             return
@@ -60,28 +37,7 @@ const AsociarVehiculo = () => {
             error = "vehiculo no esta definido"
             return
         }
-        if (!agenteObjet) {
-            error = "No se logro obtener la informacion del agente"
-            return
-        }
-
-        console.log("el input, ",{
-            input: {
-                idagent: agenteObjet.id,
-                idvehicle: vehiculoObject.id,
-                isowner: isOwner.checked ? 1 : 0
-            }
-        })
-
-        addVehicleToAgent({
-            variables: {
-                input: {
-                    idagent: agenteObjet.id,
-                    idvehicle: vehiculoObject.id,
-                    isowner: isOwner.checked ? 1 : 0
-                }
-            }
-        })
+        
     }
 
     const buscarUsuarioHandler = () => {
@@ -193,7 +149,7 @@ const AsociarVehiculo = () => {
                         <label>Es dueño del vehiculo?</label>
                     </div>
                     <div>
-                        <input id="isOwner" ref={node => isOwner = node} type="checkbox" />
+                        <input id="isOwner" ref={node=>isOwner = node} type="checkbox" />
                     </div>
                 </div>
                 <br />
