@@ -4,14 +4,11 @@
 
 #components-form-demo-normal-login .login-form-button {
     width: 100%;
+    justify-self: right;
 }
 
 #components-form-demo-normal-login .login-form-forgot {
   float: right;
-}
-
-#components-form-demo-normal-login .login-form-button {
-  width: 100%;
 }
 
 // .containerp{
@@ -32,10 +29,10 @@
     list-style: none;
     -webkit-font-feature-settings: 'tnum';
     font-feature-settings: 'tnum', "tnum";
-    width: 10vw;
-    min-width: 300px;
+    width: 40vw;
+    //min-width: 300px;
     max-width: 400px;
-    max-height: 270px;
+    //max-height: 270px;
     left: 0;
     top: 0;
     //transform: translate(180%,65%);
@@ -45,11 +42,12 @@
 .formu{
   background: url(../../assets/img/Bk-pr.png);
   border-radius: 1rem;
+  height: auto;
 }
 
 .ant-btn-primary {
   color: #fff;
-  background-color: #1890ff;
+  background-color: #b1d9ff;
   border-color: #1890ff;
   margin-left: 60% !important;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
