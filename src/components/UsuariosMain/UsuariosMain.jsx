@@ -5,7 +5,6 @@ import { useLazyQuery } from "@apollo/react-hooks";
 import CountriesSelect from "../../components/countriesSelect/CountriesSelect";
 import CitiesSelect from "../../components/CitiesSelect/CitiesSelect";
 import "../../scss/loader/_loader.scss";
-import { navigate } from "@reach/router";
 
 const UsuariosMain = (props) => {
     const CATEGORIA = parseInt(props.categoria)
@@ -30,7 +29,7 @@ const UsuariosMain = (props) => {
         if (data) {
             console.log({ id: CATEGORIA, idcity: parseInt(cityId) })
             console.log(data.getByCategoryAgentIdAndCityId);
-            if (data.getByCategoryAgentIdAndCityId.length == 0) {
+            if (data.getByCategoryAgentIdAndCityId.length === 0) {
                 setRows();
                 return;
             }
@@ -110,9 +109,9 @@ const UsuariosMain = (props) => {
 
     useEffect(() => {
         if (cityId) {
-            load();
+            load()
         }
-    }, [cityId]);
+    }, [cityId])
 
     const countrySelectHandler = e => {
         setCountryId(e.currentTarget.value);

@@ -1,6 +1,6 @@
 import React from 'react'
-import { COUNTRIES, CITIES, CIVIL } from '../../Queries'
-import { useState, useEffect } from 'react'
+import { CITIES } from '../../Queries'
+import { useEffect } from 'react'
 import { useLazyQuery } from '@apollo/react-hooks'
 
 const CitiesSelect = (props) => {

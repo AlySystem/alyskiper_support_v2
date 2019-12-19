@@ -7,9 +7,7 @@ const CivilStatusSelect = (props) => {
     //const [countries, setCountries] = useState()
 
     const {
-        loading,
         data,
-        error
     } = useQuery(CIVIL, {
     })
 

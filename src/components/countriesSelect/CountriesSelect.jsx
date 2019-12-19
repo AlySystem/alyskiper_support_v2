@@ -7,9 +7,7 @@ import { useQuery } from '@apollo/react-hooks'
 const CountriesSelect = ({ onChange, register, options, name, ...rest }) => {
 
     const {
-        loading,
         data,
-        error
     } = useQuery(COUNTRIES, {
     })
 
