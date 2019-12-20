@@ -18,10 +18,11 @@ import AsociarVehiculo from "../Vehiculos/AsociarVehiculo";
 import NuevoWallet from '../Wallet/NuevoWallet'
 import MainWallet from '../Wallet/MainWallet'
 import RecargaWallet from '../Wallet/RecargaWallet'
-import ActualizarUser from '../ActualizarUser/ActualizarUser'
+import ActualizarUser from '../Usuarios/ActualizarUser'
 import { Result } from "antd";
 import Img from "../../components/img/Img";
-import logo8 from "../../assets/img/Loader-Skiper (1).gif";
+import logo8 from "../../assets/img/Loader-Skiper (1).gif"
+import DriverImg from '../../components/DriverImg/DriverImg'
 // import logo2 from "../../assets/img/AlySkiper vectorizado y registrado SIN DEGRADAR (1).png";
 // import Img from "../../components/img/Img";
 const { Header, Content, Footer, Sider } = Layout;
@@ -112,6 +113,7 @@ const Home = props => {
               <MainWallet path="/wallet"/>
               <RecargaWallet path="/wallet/recarga"/>
               <ActualizarUser path="/usuarios/actualizarCategoria"/>
+              <DriverImg path="/choferes/img"/>
             </Router>
           </div>
         </Content>
