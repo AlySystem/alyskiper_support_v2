@@ -6,7 +6,7 @@ import { useMutation, useLazyQuery } from "@apollo/react-hooks";
 import useForm from "react-hook-form";
 import * as yup from "yup";
 import { CREAR_USUARIO, NUEVO_AGENTE } from "../../Mutations/index";
-import { USUARIO_POR_EMAIL } from '../../Queries/index'
+import { USUARIO_POR_EMAIL,OBTENER_PROPIETARIO } from '../../Queries/index'
 import { navigate } from "@reach/router";
 
 var jwtDecode = require("jwt-decode");
@@ -35,6 +35,7 @@ const FormularioUsers = props => {
     const [city, setCity] = useState()
     const [formData, setFormData] = useState()
     const [identity, setIdentity] = useState()
+    const [edit, setEdit] = useState(false)
 
     /*-- Esquema yup para validacion de form --*/
     const schema = yup.object().shape({
@@ -56,30 +57,52 @@ const FormularioUsers = props => {
         country_id: yup.number().positive(),
         city_id: yup.number().positive().required(),
         idcivil_status: yup.number().positive()
-    });
+    })
 
     /* objetos basicos de react-hook-form  */
     const { register, handleSubmit, errors, setValue } = useForm({
         validationSchema: schema
     })
 
+    useEffect(() => {
+        if (!edit) {
+            findUserById({
+                variables: { id: props.id }
+            })
+            setEdit(true)
+        }
+    }, [props.id])
+
     /* Si viene a editar el registro */
+    const [idCityVal,setIdCityVal] = useState()
+    const [idCountryVal,setCountryIdVal] = useState()
+    const [idCivilStatusVal,setIdCivilStatusVal] = useState()
     const setFormValues = (object) => {
+        setIdCivilStatusVal(object.civilStatus? object.civilStatus.id:1)
+        setCountryIdVal(object.country.id)
+        setIdCityVal(object.city.id)
+        setCountry(object.country.id)
+        console.log(object)
         for (var key of Object.keys(object)) {
+            console.log("key %s value %s",key,object[key])
             setValue(key, object[key])
         }
     }
 
     /* funcion de efecto en caso que venga el registro a editar */
-    useEffect(()=>{
-        if(props.userAgentValues){
+    useEffect(() => {
+        if (props.userAgentValues) {
             setFormValues(props.userAgentValues)
         }
-    },[props.userAgentValues])
+    }, [props.userAgentValues])
 
     /* Mutation de creacion usuario agente y query de usuario por email */
+    const [findUserById] = useLazyQuery(OBTENER_PROPIETARIO, {
+        onCompleted: (data) => data.searchUser ? setFormValues(data.searchUser): console.log("data is null"),
+        onError: (err) => { console.error(err) }
+    })
     const [findUserInfo] = useLazyQuery(USUARIO_POR_EMAIL, {
-        onCompleted: (data) => { onCompletedSponsorIdFind(data.searchUserByEmail) },
+        onCompleted: (data) => onCompletedSponsorIdFind(data.searchUserByEmail),
         onError: (err) => { console.error(err) }
     })
     const [addUser] = useMutation(CREAR_USUARIO, {
@@ -100,13 +123,13 @@ const FormularioUsers = props => {
     const [addAgent] = useMutation(NUEVO_AGENTE, {
         onCompleted: (data) => {
             console.log("Agente ingresado correctamente")
-            if(props.afterInsertHandler){
+            if (props.afterInsertHandler) {
                 console.log("ingreso al evento handler final")
                 props.afterInsertHandler()
-            }else{
+            } else {
                 console.log("ingreso al evento handler normal")
                 navigate(ON_SUCCESS_NAVIGATE_TO)
-            }            
+            }
         },
         onError: (err) => {
             console.log("Error al ingresar el Agente")
@@ -235,9 +258,9 @@ const FormularioUsers = props => {
     const onCitiesSelectHandler = e => {
         setCity(e.currentTarget.value);
     }
-
-    if (!CATEGORIA && !ON_SUCCESS_NAVIGATE_TO) {
-        return (<><p><h2 className="errorText">Debe definir la categoria y el navigate</h2></p></>)
+    
+    if ((!CATEGORIA && !ON_SUCCESS_NAVIGATE_TO) && !edit) {
+        return (<><h2 className="errorText"><p>Debe definir la categoria y el navigate</p></h2></>)
     }
 
     return (
@@ -295,6 +318,7 @@ const FormularioUsers = props => {
                             register={register}
                             name="country_id"
                             onChange={onCountrySelectHandler}
+                            defvalue={idCountryVal}
                         />
                         {errors.lastname && <h4><p>"Este campo es requerido"</p></h4>}
                     </div>
@@ -305,12 +329,13 @@ const FormularioUsers = props => {
                             name="city_id"
                             onChange={onCitiesSelectHandler}
                             countryId={country}
+                            defvalue={idCityVal}
                         />
                         {errors.lastname && <h4><p>"Este campo es requerido"</p></h4>}
                     </div>
                     <div className="separador">
                         <label>Estado Civil</label>
-                        <CiviStatusSelect register={register} name="idcivil_status" />
+                        <CiviStatusSelect register={register} name="idcivil_status" defvalue={idCivilStatusVal} />
                         {errors.lastname && <h4><p>"Este campo es requerido"</p></h4>}
                     </div>
                     <div className="separador">

@@ -292,7 +292,7 @@ query agents {
 
 // BUSCAR UN COMERCIO
 
-export const  OBTENER_COMERCIO = gql`
+export const OBTENER_COMERCIO = gql`
 query commerceById($id : Int!) {
   commerceById(id: $id) {
     namecommerce
@@ -313,7 +313,7 @@ query commerceById($id : Int!) {
   }
 }
 `;
-  
+
 export const OBTENER_PROPIETARIO = gql`
 query searchUser ($id: ID!){
   searchUser(id: $id) {
@@ -324,12 +324,19 @@ query searchUser ($id: ID!){
     user
     sponsor_id
   	phone
-    address
+    address    
+    date_birth
+    civilStatus {
+      id
+      name
+    }
     country{
       id
+      name
     }
     city{
       id
+      name
     }
   }
 }
@@ -573,6 +580,17 @@ query searchAgentByIdUser($iduser: Int!) {
     categoryAgent {
       name
     }
+  }
+}
+`
+
+export const HORARIOS = gql`
+query getAllSkiperDriverSchedule{
+    getAllSkiperDriverSchedule{
+      id
+      start_time
+      final_time
+      turn
   }
 }
 `

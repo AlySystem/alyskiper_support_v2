@@ -1,6 +1,6 @@
 import React from 'react'
 import { CIVIL } from '../../Queries'
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 
 const CivilStatusSelect = (props) => {
@@ -10,11 +10,12 @@ const CivilStatusSelect = (props) => {
         data,
     } = useQuery(CIVIL, {
     })
-
+    const [value, setValue] = useState()
     useEffect(() => {
         if (data) {
             console.log('obtuvo datos')
             console.log(data)
+            setValue(props.defvalue)
             //setCountries(data.countries)
         }
     }, [data])
@@ -29,6 +30,7 @@ const CivilStatusSelect = (props) => {
             ref={props.register}
             onChange={props.onChange}
             defaultValue={data.getCivilStatus[0]}
+            value={value}
         >
             {
                 data.getCivilStatus.map(x => {

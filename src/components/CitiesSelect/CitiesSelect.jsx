@@ -1,19 +1,25 @@
 import React from 'react'
 import { CITIES } from '../../Queries'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useLazyQuery } from '@apollo/react-hooks'
 
 const CitiesSelect = (props) => {
-    const [load, { called, loading, data }] = useLazyQuery(CITIES, {
-        variables: { id: parseInt(props.countryId) }
+    const [load, { data }] = useLazyQuery(CITIES, {
+        variables: {
+            id: parseInt(props.countryId),
+        },
+        onCompleted: _ => { setValue(props.defvalue) }
     })
-    useEffect(()=>{
-        if(props.callback){
-            if(data)
-                if(data.getAllCitiesByCountryId[0].cities[0])
-                    props.callback(data.getAllCitiesByCountryId[0].cities[0].id)   
+    const [value, setValue] = useState()
+    useEffect(() => {
+        if (props.callback) {
+            if (data) {
+                if (data.getAllCitiesByCountryId[0].cities[0]) {
+                    props.callback(data.getAllCitiesByCountryId[0].cities[0].id)
+                }
+            }
         }
-    },[data])
+    }, [data])
 
     useEffect(() => {
         if (props.countryId) {
@@ -29,11 +35,11 @@ const CitiesSelect = (props) => {
         <select
             name={props.name}
             ref={props.register}
-            onChange={props.onChange}            
+            onChange={props.onChange}
+            value={value}
         >
             {
-                
-                data.getAllCitiesByCountryId[0].cities.map((x,index) => {
+                data.getAllCitiesByCountryId[0].cities.map((x) => {
                     return <option key={x.id} value={x.id}>{x.name}</option>
                 })
             }

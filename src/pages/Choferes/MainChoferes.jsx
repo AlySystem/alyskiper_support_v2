@@ -40,13 +40,15 @@ const MainChoferes = () => {
       const finalRows = data.getByCategoryAgentIdAndCityId[0].agents.map(
         item => {
           return {
+            id: item.user.id,
             firstname: item.user.firstname,
             lastname: item.user.lastname,
             email: item.user.email,
             address: item.user.address,
             phone: item.user.phone,
             identity: item.identity,
-            state: item.state ? "Activo" : "Inactivo"
+            state: item.state ? "Activo" : "Inactivo",
+            edit: <button onClick={()=>navigate('/user/edit/' + item.user.id)}>Editar</button>
           };
         }
       );
@@ -98,6 +100,10 @@ const MainChoferes = () => {
           title: "Estado",
           dataIndex: "state",
           key: "7"
+        }, {
+          title: "Editar",
+          dataIndex: "edit",
+          key: "8"
         }
       ];
       console.log(columns);

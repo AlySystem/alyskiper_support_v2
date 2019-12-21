@@ -1,21 +1,20 @@
 import React from 'react'
-import { COUNTRIES } from '../../Queries'
-import { useEffect,useState } from 'react'
+import { HORARIOS } from '../../Queries'
+import { useEffect } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 
 
-const CountriesSelect = ({ onChange, register, options, name, defvalue,...rest }) => {
+const ScheduleSelect = ({ onChange, register, options, name, ...rest }) => {
 
     const {
         data,
-    } = useQuery(COUNTRIES, {
+    } = useQuery(HORARIOS, {
     })
-    const [value, setValue] = useState()
+
     useEffect(() => {
         if (data) {
             console.log('obtuvo datos')
             console.log(data)
-            setValue(defvalue)
         }
     }, [data])
 
@@ -28,16 +27,15 @@ const CountriesSelect = ({ onChange, register, options, name, defvalue,...rest }
             name={name}
             ref={register}
             onChange={onChange}
-            value={value}
             {...rest}
         >
             {
-                data.countries.map(x => {
-                    return <option key={x.id} value={x.id}>{x.name}</option>
+                data.getAllSkiperDriverSchedule.map(x => {
+                    return <option key={x.id} value={x.id}>{x.turn}</option>
                 })
             }
         </select >
     )
 }
 
-export default CountriesSelect
+export default ScheduleSelect
