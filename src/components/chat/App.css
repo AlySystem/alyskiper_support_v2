@@ -1,0 +1,42 @@
+.chatbox {
+  position: fixed;
+  background: white;
+  width: auto;
+  max-height: auto ;
+  bottom: 0;
+  z-index: var(--z-modal);
+  vertical-align:  middle;
+  right: 0;
+}
+
+.hbox {
+  display: flex;
+  flex-direction: row;
+}
+.vbox {
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
+.grow {
+  flex: 1;
+}
+.fill {
+  width: 100%;
+  height: auto; 
+  max-height: 70hv;
+}
+.scroll {
+  overflow: scroll;
+}
+
+.userlist {
+  padding: 0.25em;
+}
+.userlist span {
+  background-color: darkblue;
+  color: white;
+  border-radius: 3px;
+  margin: 0.25em;
+  padding: 0.25em;
+}

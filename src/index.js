@@ -30,6 +30,7 @@ const client = new ApolloClient({
     }),
     onError: ({ networkError, graphQLErrors }) => {
         console.log(networkError)
+        console.log(graphQLErrors)
         console.log('graphQLErrors', networkError);
     }
 })
@@ -44,3 +45,5 @@ ReactDOM.render(
     , document.getElementById('root'))
 
 serviceWorker.unregister()
+
+export {client}

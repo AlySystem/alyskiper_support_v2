@@ -16,7 +16,6 @@ const CatTravelSelect = (props) => {
             onChange={props.onChange}            
         >
             {
-                
                 data.skipercattravels.map((x) => {
                     return <option key={x.id} value={x.id}>{x.name}</option>
                 })

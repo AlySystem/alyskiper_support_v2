@@ -226,3 +226,20 @@ mutation registerDepositWallet(
     }
   }
 `
+
+export const CAMBIAR_CONTRASENA_EMAIL = gql`
+mutation changePasswordByEmail ($input: ChangePasswordEmailInput) {
+  changePasswordByEmail(
+    input:$input
+  )
+}
+`
+
+export const ACTUALIZAR_ESTADO_AGENTE = gql`
+mutation updateState($idagent: Int){
+  updateState(idagent: $idagent){
+    id
+    state
+  }
+}
+`

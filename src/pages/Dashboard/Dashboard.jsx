@@ -3,7 +3,7 @@ import BarGraph from './BarGraph'
 import LineGraph from './LineGraph'
 import PieChart from './PieChart'
 import { Modal } from 'antd'
-
+import LastUsers from './LastUsers'
 const Dashboard = (props) => {
     const [modalState, setModalState] = useState(false)
     const [panes, setPanes] = useState([])
@@ -65,9 +65,7 @@ const Dashboard = (props) => {
                 </Modal>
             </div >
             <div className="card-container">
-                <BarGraph />
-                <LineGraph />
-                <PieChart />
+                <LastUsers/>
             </div>
         </div>
     )

@@ -110,7 +110,9 @@ const MenuMain = () => {
           <Menu.Item key="1">
             <Link to="/usuarios/actualizarCategoria"><div>Asignar Cat. a Usuario</div></Link>
           </Menu.Item>
-
+          <Menu.Item key="2">
+            <Link to="/usuarios/updatePassword"><div>Cambiar Contraseña</div></Link>
+          </Menu.Item>
         </SubMenu>
         <SubMenu
           key="sub6"

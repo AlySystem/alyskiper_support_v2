@@ -68,12 +68,15 @@ p {
     transition: 0.3s;
     margin-top: 30px;
     margin-left: 20px;
-    max-width: 400px;
+    // max-width: 400px;
     min-width: 200px;
     min-height: 200px;
     position: relative;
-    height: 30vh;
-    width: 80vw;
+    //height: 30vh;
+    //width: 80vw;
+    padding: 20px 20px 20px 20px;
+    background-color: darkslategray;
+    border-radius: 20px;
 }
 
 
@@ -197,3 +200,12 @@ label[type=file] {
     align-items: center;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
+
+
+td {
+    padding: 5px
+}
+
+th {
+    padding: 5px
+}

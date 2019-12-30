@@ -28,7 +28,8 @@ const MainWallet = () => {
             console.log(data);
             onDataLoaded(data.getAllSkiperWalletsByUserId)
         },
-        onError: (error) => { console.error(error) }
+        onError: (error) => { console.error(error) },
+        fetchPolicy:"network-only"
     })
 
     const onDataLoaded = (data) => {

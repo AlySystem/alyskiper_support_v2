@@ -52,7 +52,7 @@ const RecargaWallet = () => {
                 idtransaction: TRANSACTION_ID_RECARGA,
                 idpayment_method: PAYMENT_METHOD,
                 deposit: values.amount,
-                description: 'Rearga'
+                description: 'Recarga'
             }
         })
     }

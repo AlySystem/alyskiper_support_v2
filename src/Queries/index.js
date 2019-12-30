@@ -594,3 +594,19 @@ query getAllSkiperDriverSchedule{
   }
 }
 `
+
+export const OBTENER_IMGS_SOPORTE = gql`
+query getUploadImgAgentByAgent($idagent: Int) {
+  getUploadImgAgentByAgent(idagent: $idagent){
+    id
+    id_skiper_agent
+    url_img_identity
+    url_img_verify_identity
+    url_img_letterone_recomendation
+    url_img_lettertwo_recomendation
+    url_img_driver_license
+    url_img_police_record
+    url_img_driving_record
+  }
+}
+`

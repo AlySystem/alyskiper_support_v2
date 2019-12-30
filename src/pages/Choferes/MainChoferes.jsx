@@ -6,6 +6,8 @@ import CountriesSelect from "../../components/countriesSelect/CountriesSelect";
 import CitiesSelect from "../../components/CitiesSelect/CitiesSelect";
 import "../../scss/loader/_loader.scss";
 import { navigate } from "@reach/router";
+import { Modal } from 'antd'
+import ShowDriveInfo from '../../components/ShowDriveInfo/ShowDriveInfo'
 //import logger from '../../utils/LogConfig'
 
 const MainChoferes = () => {
@@ -25,7 +27,8 @@ const MainChoferes = () => {
     onCompleted: () => {
       console.log(data);
       onLoadData();
-    }
+    },
+    pollInterval:5000
   })
 
   const onLoadData = () => {
@@ -48,7 +51,8 @@ const MainChoferes = () => {
             phone: item.user.phone,
             identity: item.identity,
             state: item.state ? "Activo" : "Inactivo",
-            edit: <button onClick={()=>navigate('/user/edit/' + item.user.id)}>Editar</button>
+            showInfo: <button onClick={() => {setModalSoporteVisible(true); setModalAgentId(item.id)} }>Mostrar Soportes</button>
+            //edit: <button onClick={()=>navigate('/user/edit/' + item.user.id)}>Editar</button>
           };
         }
       );
@@ -101,8 +105,8 @@ const MainChoferes = () => {
           dataIndex: "state",
           key: "7"
         }, {
-          title: "Editar",
-          dataIndex: "edit",
+          title: "Mostrar Soportes",
+          dataIndex: "showInfo",
           key: "8"
         }
       ];
@@ -133,8 +137,31 @@ const MainChoferes = () => {
     console.log("entro al callback");
     setCityId(id);
   };
+
+  const [modalSoporteVisible, setModalSoporteVisible] = useState(false)
+  const [modalAgentId, setModalAgentId] = useState()
+  const modalSoportes = _ => {
+    return (<>
+      <Modal
+        title="Documentos de soporte"
+        visible={modalSoporteVisible}
+        footer={null}
+        destroyOnClose={true}
+        width="90%"
+        style={{ minHeight: "80%", height: "100vh" }}
+        onCancel={()=>{ setModalSoporteVisible(false) }}
+      >
+        <div >
+          <ShowDriveInfo agentId={modalAgentId}/>
+        </div>
+
+      </Modal>
+    </>)
+  }
+
   return (
     <>
+      {modalSoportes()}
       <div>
         <h2>
           <p>Choferes por pais</p>

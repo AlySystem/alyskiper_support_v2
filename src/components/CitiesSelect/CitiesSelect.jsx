@@ -28,7 +28,7 @@ const CitiesSelect = (props) => {
     }, [props])
 
     if (!data) {
-        return (<select style={{ minWidth: "200px" }}></select>)
+        return (<select name={props.name} ref={props.register} style={{ minWidth: "200px" }}></select>)
     }
 
     return (
