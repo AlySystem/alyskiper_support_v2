@@ -1,18 +1,24 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import nuevoUsuario from '../../assets/sounds/nuevo_usuario.mp3'
 import { useRef } from 'react'
 import { OBTENER_ULTIMOS_USUARIOS_REGISTRADOS } from '../../Queries/index'
 import { useQuery } from '@apollo/react-hooks'
+import ShowDriveInfo from '../../components/ShowDriveInfo/ShowDriveInfo'
+import { Modal } from 'antd'
 const LastUsers = _ => {
 
     const [arrActual, setArrActual] = useState([])
 
     const { data } = useQuery(OBTENER_ULTIMOS_USUARIOS_REGISTRADOS, {
-        pollInterval: 100,
+        variables:{
+            limit:10,
+            categoryId: 1
+        },
+        pollInterval: 5000,
         fetchPolicy: "network-only",
         onCompleted: (data) => {
             console.log(data)
-            let arr = arrActual.concat(data.getLastUsers)
+            let arr = arrActual.concat(data.getLastUsersByCategoryId)
 
             function onlyUnique(value, index, self) {
                 return self.indexOf(value) === index;
@@ -25,7 +31,7 @@ const LastUsers = _ => {
                     audio.current.play()
                 }, 500)
             })
-            setArrActual(data.getLastUsers)
+            setArrActual(data.getLastUsersByCategoryId)
         },
         onError: (err) => {
             console.log(err.errors)
@@ -84,7 +90,7 @@ const LastUsers = _ => {
     useEffect(() => {
         if (data) {
             console.log(data)
-            let arr = arrActual.concat(data.getLastUsers)
+            let arr = arrActual.concat(data.getLastUsersByCategoryId)
 
             function onlyUnique(value, index, self) {
                 return self.indexOf(value) === index;
@@ -97,17 +103,18 @@ const LastUsers = _ => {
                     audio.current.play()
                 }, 500)
             })
-            setArrActual(data.getLastUsers)
+            setArrActual(data.getLastUsersByCategoryId)
         }
     }, [data])
 
     const tabla = _ => {
         if (data)
             return (
-                data.getLastUsers.map((item, index) => {
+                data.getLastUsersByCategoryId.map((item, index) => {
+                    let agentId = item.skiperAgent[0] ? item.skiperAgent[0].id : null
                     return (
                         <tr key={index}>
-                            <td><a href="#">{item.firstname + '|' + item.id}</a></td>
+                            <td><a onClick={ () => {setModalAgentId(agentId); setModalSoporteVisible(true)} }>{item.firstname + '|' + item.id +  '|' + agentId}</a></td>
                             <td>{item.lastname}</td>
                             <td>{item.email}</td>
                             <td>{item.phone}</td>
@@ -119,14 +126,35 @@ const LastUsers = _ => {
             )
     }
 
-    return (<>
+    const [modalSoporteVisible, setModalSoporteVisible] = useState(false)
+    const [modalAgentId, setModalAgentId] = useState()
+    const modalSoportes = _ => {
+        return (<>
+            <Modal
+                title="Documentos de soporte"
+                visible={modalSoporteVisible}
+                footer={null}
+                destroyOnClose={true}
+                width="90%"
+                style={{ minHeight: "80%", height: "100vh" }}
+                onCancel={() => { setModalSoporteVisible(false) }}
+            >
+                <div >
+                    <ShowDriveInfo agentId={modalAgentId} />
+                </div>
 
+            </Modal>
+        </>)
+    }
+
+    return (<>
+        {modalSoportes()}
         <div className="card">
             <audio ref={audio}>
                 <source src={nuevoUsuario} />
             </audio>
-            <button onClick={clickHandler}>play</button>
-            <div align="center"><h3><b>Ultimos Usuarios</b></h3></div>
+            {/* <button onClick={clickHandler}>play</button> */}
+            <div align="center"><h3><b>Ultimos Choferes Registrados</b></h3></div>
             <div align="center">
                 <table>
                     <thead>

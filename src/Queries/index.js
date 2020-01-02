@@ -613,18 +613,30 @@ query getUploadImgAgentByAgent($idagent: Int) {
 `
 
 export const OBTENER_ULTIMOS_USUARIOS_REGISTRADOS = gql`
-query getLastUsers {
-  getLastUsers {
+query getLastUsersByCategoryId($limit: Int, $categoryId: Int) {
+  getLastUsersByCategoryId(limit:$limit,categoryId:$categoryId) {
     id
     firstname
     lastname
     email
-    phone
-    create_at
-    country{
+    country {
       id
       name
     }
+    skiperAgent {
+      id
+      identity
+      categoryAgent{
+        id
+        name
+      }
+    }
+    skiperWallet{
+      id
+      amount
+    }
+    phone
+    create_at
   }
 }
 `
