@@ -11,8 +11,8 @@ import { Router } from "@reach/router";
 import Dashboard from './pages/Dashboard/Dashboard'
 
 const client = new ApolloClient({
-    //uri: 'https://backend-alyskiper.herokuapp.com/graphql',
-    uri: 'http://localhost:3000/graphql',
+    uri: 'https://backend-alyskiper.herokuapp.com/graphql',
+    //uri: 'http://localhost:3000/graphql',
     fetchOptions: {
         credentials: 'include'
     },
