@@ -518,7 +518,7 @@ query searchUserByEmail($email: String!){
         name
       }
     }
-
+    create_at
   }
 }`
 
@@ -620,7 +620,11 @@ query getLastUsers {
     lastname
     email
     phone
-    
+    create_at
+    country{
+      id
+      name
+    }
   }
 }
 `

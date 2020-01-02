@@ -111,6 +111,8 @@ const LastUsers = _ => {
                             <td>{item.lastname}</td>
                             <td>{item.email}</td>
                             <td>{item.phone}</td>
+                            <td>{item.create_at}</td>
+                            <td>{item.country.name}</td>
                         </tr>
                     )
                 })
@@ -133,6 +135,8 @@ const LastUsers = _ => {
                             <th>Apellido</th>
                             <th>Correo</th>
                             <th>Telefono</th>
+                            <th>Fecha</th>
+                            <th>Pais</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -11,8 +11,8 @@ import { Router } from "@reach/router";
 import Dashboard from './pages/Dashboard/Dashboard'
 
 const client = new ApolloClient({
-    uri: 'https://backend-alyskiper.herokuapp.com/graphql',
-    //uri: 'http://127.0.0.1:3000/graphql',
+    //uri: 'https://backend-alyskiper.herokuapp.com/graphql',
+    uri: 'http://localhost:3000/graphql',
     fetchOptions: {
         credentials: 'include'
     },
@@ -30,7 +30,7 @@ const client = new ApolloClient({
         addTypename: false
     }),
     onError: ({ networkError, graphQLErrors }) => {
-        networkError.message && console.log(networkError.message)
+        networkError && console.log(networkError.message)
         graphQLErrors && console.log(graphQLErrors.message)
         //console.log('graphQLErrors', networkError);
     }
