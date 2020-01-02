@@ -50,6 +50,7 @@ const MainChoferes = () => {
             address: item.user.address,
             phone: item.user.phone,
             identity: item.identity,
+            create_at: item.user.create_at,
             state: item.state ? "Activo" : "Inactivo",
             showInfo: <button onClick={() => {setModalSoporteVisible(true); setModalAgentId(item.id)} }>Mostrar Soportes</button>
             //edit: <button onClick={()=>navigate('/user/edit/' + item.user.id)}>Editar</button>
@@ -104,10 +105,15 @@ const MainChoferes = () => {
           title: "Estado",
           dataIndex: "state",
           key: "7"
+        },
+        {
+          title: "Fecha Creacion",
+          dataIndex: "create_at",
+          key: "8"
         }, {
           title: "Mostrar Soportes",
           dataIndex: "showInfo",
-          key: "8"
+          key: "9"
         }
       ];
       console.log(columns);
@@ -195,7 +201,7 @@ const MainChoferes = () => {
         </div>
       </div>
       <div>
-        <FilteredGrid ref={grid} columns={columns} rows={rows} />
+        <FilteredGrid ref={grid} columns={columns} rows={rows} rowClassName={record=>record.state === "Activo" ? "rowGreen" : "rowRed"} />
       </div>
     </>
   );

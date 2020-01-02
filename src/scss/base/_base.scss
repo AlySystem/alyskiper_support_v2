@@ -55,6 +55,7 @@ h4,
 h5,
 h6 {
     margin: 0;
+    color: white;
 }
 
 p {
@@ -75,7 +76,7 @@ p {
     //height: 30vh;
     //width: 80vw;
     padding: 20px 20px 20px 20px;
-    background-color: darkslategray;
+    background-color:#6d6e72;
     border-radius: 20px;
 }
 
@@ -203,9 +204,19 @@ label[type=file] {
 
 
 td {
-    padding: 5px
+    padding: 5px;
 }
 
 th {
-    padding: 5px
+    padding: 5px;
+}
+
+.rowRed {
+    background: red;
+    background-color: red;
+}
+
+.rowGreen {
+    background: green;
+    background-color: green;
 }

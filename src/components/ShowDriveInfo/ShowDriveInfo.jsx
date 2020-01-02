@@ -25,6 +25,9 @@ const ShowDriveInfo = (props) => {
 
     const select = useRef()
     const onChangeHandler = _ => {
+        if(!data.getUploadImgAgentByAgent)
+            return
+            
         let selectedValue = select.current.selectedOptions[0]
         let imgsrc = data.getUploadImgAgentByAgent[selectedValue.value]
         // console.log(data.getUploadImgAgentByAgent[selectedValue.value])

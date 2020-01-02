@@ -53,7 +53,6 @@ const Dashboard = (props) => {
     console.log("entro al dashboard")
     return (
         <div>
-            {console.log("asdfasdfasd")}
             <div>
                 <Modal
                     title="Basic Modal"

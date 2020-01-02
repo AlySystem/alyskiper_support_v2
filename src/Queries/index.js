@@ -409,6 +409,7 @@ query getByCategoryAgentIdAndCityId ($id: Int!, $idcity: Int!) {
         user
         phone
         address
+        create_at
       }
     }
   }
@@ -607,6 +608,19 @@ query getUploadImgAgentByAgent($idagent: Int) {
     url_img_driver_license
     url_img_police_record
     url_img_driving_record
+  }
+}
+`
+
+export const OBTENER_ULTIMOS_USUARIOS_REGISTRADOS = gql`
+query getLastUsers {
+  getLastUsers {
+    id
+    firstname
+    lastname
+    email
+    phone
+    
   }
 }
 `
