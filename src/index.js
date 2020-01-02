@@ -12,7 +12,7 @@ import Dashboard from './pages/Dashboard/Dashboard'
 
 const client = new ApolloClient({
     //uri: 'https://backend-alyskiper.herokuapp.com/graphql',
-    uri: process.env.HOST || 'http://localhost:3000/graphql',
+    uri: process.env.HOSTNAME || 'http://localhost:3000/graphql',
     fetchOptions: {
         credentials: 'include'
     },
