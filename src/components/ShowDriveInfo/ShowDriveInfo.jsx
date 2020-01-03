@@ -1,15 +1,15 @@
 import React, { useState, useRef } from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { OBTENER_IMGS_SOPORTE } from '../../Queries/index'
+import { OBTENER_TODAS_IMAGENES_AGENTE } from '../../Queries/index'
 import { ACTUALIZAR_ESTADO_AGENTE } from '../../Mutations/index'
 import noimage from '../../assets/img/noimage.png'
 
 const ShowDriveInfo = (props) => {
-    const { data } = useQuery(OBTENER_IMGS_SOPORTE, {
+    const { data } = useQuery(OBTENER_TODAS_IMAGENES_AGENTE, {
         variables: {
             idagent: props.agentId
         },
-        onCompleted: (data) => { console.log(data); data.getUploadImgAgentByAgent ? onChangeHandler() : console.log("no data") },
+        onCompleted: (data) => { console.log(data); data.getAllImages[0] ? onChangeHandler() : console.log("no data") },
         onError: (err) => { console.log(err) }
     })
 
@@ -25,12 +25,12 @@ const ShowDriveInfo = (props) => {
 
     const select = useRef()
     const onChangeHandler = _ => {
-        if(!data.getUploadImgAgentByAgent)
+        if(!data.getAllImages[0])
             return
             
         let selectedValue = select.current.selectedOptions[0]
-        let imgsrc = data.getUploadImgAgentByAgent[selectedValue.value]
-        // console.log(data.getUploadImgAgentByAgent[selectedValue.value])
+        let imgsrc = data.getAllImages[0][selectedValue.value]
+        // console.log(data.getAllImages[0][selectedValue.value])
         setImgsrc(imgsrc ? imgsrc : noimage)
     }
     const onActivateHandler = _ => {

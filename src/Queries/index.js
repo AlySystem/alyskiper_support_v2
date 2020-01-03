@@ -640,3 +640,47 @@ query getLastUsersByCategoryId($limit: Int, $categoryId: Int) {
   }
 }
 `
+
+export const OBTENER_TODAS_IMAGENES_AGENTE = gql`
+query getAllImages($idagent:Int)
+{
+   getAllImages(idagent:$idagent){
+    identity
+    iduser
+    url_img_commerceinside_four
+    url_img_commerceinside_one
+    url_img_commerceinside_three
+    url_img_commerceinside_two
+    url_img_commerceoutside_one
+    url_img_commerceoutside_two
+    url_img_driver_license
+    url_img_driving_record
+    url_img_identity
+    url_img_letterone_recomendation
+    url_img_lettertwo_recomendation
+    url_img_police_record
+    url_img_verify_identity
+    url_img_identification_ruc
+    url_img_power_letter_four
+    url_img_power_letter_one
+    url_img_power_letter_three
+    url_img_power_letter_two
+    url_img_trade_registration
+    idagent
+    idvehicle
+    url_img_vehicle_behind
+    url_img_vehicle_front
+    url_img_vehicle_inside_four
+    url_img_vehicle_inside_one
+    url_img_vehicle_inside_three
+    url_img_vehicle_inside_two
+    url_img_vehicle_side_left
+    url_img_vehicle_side_right
+    url_img_gas_emission
+    url_img_insurance
+    url_img_license_plate
+    url_img_mechanical_inspection
+    url_img_vehicle_circulation
+  }
+}
+`
