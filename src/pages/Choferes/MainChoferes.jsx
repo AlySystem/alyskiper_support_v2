@@ -193,11 +193,11 @@ const MainChoferes = () => {
         </div>
         <div>
           <label>Ciudad</label>
-          {/* <CitiesSelect
+          <CitiesSelect
             callback={cityCallbackHandler}
             countryId={countryId}
             onChange={citiesSelectHandler}
-          /> */}
+          />
         </div>
       </div>
       <div>
