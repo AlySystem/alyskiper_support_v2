@@ -9,7 +9,7 @@ const ShowDriveInfo = (props) => {
         variables: {
             idagent: props.agentId
         },
-        onCompleted: (data) => { console.log(data); data.getAllImages[0] ? onChangeHandler() : console.log("no data") },
+        onCompleted: (data) => { console.log(data); data.getAllImages ? onChangeHandler() : console.log("no data") },
         onError: (err) => { console.log(err) }
     })
 
@@ -25,9 +25,11 @@ const ShowDriveInfo = (props) => {
 
     const select = useRef()
     const onChangeHandler = _ => {
+        if(!data.getAllImages)
+            return
         if(!data.getAllImages[0])
             return
-            
+
         let selectedValue = select.current.selectedOptions[0]
         let imgsrc = data.getAllImages[0][selectedValue.value]
         // console.log(data.getAllImages[0][selectedValue.value])

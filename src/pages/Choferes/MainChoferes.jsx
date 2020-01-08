@@ -8,6 +8,7 @@ import "../../scss/loader/_loader.scss";
 import { navigate } from "@reach/router";
 import { Modal } from 'antd'
 import ShowDriveInfo from '../../components/ShowDriveInfo/ShowDriveInfo'
+import ShowDriverVehicleInfo from "../../components/ShowDriveInfo/ShowDriverVehicleInfo";
 //import logger from '../../utils/LogConfig'
 
 const MainChoferes = () => {
@@ -28,7 +29,7 @@ const MainChoferes = () => {
       console.log(data);
       onLoadData();
     },
-    pollInterval:5000
+    pollInterval: 5000
   })
 
   const onLoadData = () => {
@@ -52,7 +53,8 @@ const MainChoferes = () => {
             identity: item.identity,
             create_at: item.user.create_at,
             state: item.state ? "Activo" : "Inactivo",
-            showInfo: <button onClick={() => {setModalSoporteVisible(true); setModalAgentId(item.id)} }>Mostrar Soportes</button>
+            showInfo: <button onClick={() => { setModalSoporteVisible(true); setModalAgentId(item.id) }}> Soportes</button>,
+            showVehicle: <button onClick={() => { setModalVehicleInfoVisible(true); setUserId(item.user.id) }}>Vehiculo</button>
             //edit: <button onClick={()=>navigate('/user/edit/' + item.user.id)}>Editar</button>
           };
         }
@@ -111,10 +113,15 @@ const MainChoferes = () => {
           dataIndex: "create_at",
           key: "8"
         }, {
-          title: "Mostrar Soportes",
+          title: "Soportes",
           dataIndex: "showInfo",
           key: "9"
+        }, {
+          title: "Vehiculo",
+          dataIndex: "showVehicle",
+          key: "10"
         }
+
       ];
       console.log(columns);
       console.log(finalRows);
@@ -155,12 +162,30 @@ const MainChoferes = () => {
         destroyOnClose={true}
         width="90%"
         style={{ minHeight: "80%", height: "100vh" }}
-        onCancel={()=>{ setModalSoporteVisible(false) }}
+        onCancel={() => { setModalSoporteVisible(false) }}
       >
         <div >
-          <ShowDriveInfo agentId={modalAgentId}/>
+          <ShowDriveInfo agentId={modalAgentId} />
         </div>
 
+      </Modal>
+    </>)
+  }
+
+  const [modalVehicleInfoVisible, setModalVehicleInfoVisible] = useState(false)
+  const [userId, setUserId] = useState()
+  const modalVehicleInfo = () => {
+    return (<>
+      <Modal
+        title="Informacion de Vehiculo"
+        visible={modalVehicleInfoVisible}
+        footer={null}
+        destroyOnClose={true}
+        // style={{ minHeight: "80%", height: "100vh" }}
+        onCancel={() => { setModalVehicleInfoVisible(false) }}>
+        <div align="center">
+          <ShowDriverVehicleInfo idUser={userId} callback={() => setModalVehicleInfoVisible(false)} />
+        </div>
       </Modal>
     </>)
   }
@@ -168,6 +193,7 @@ const MainChoferes = () => {
   return (
     <>
       {modalSoportes()}
+      {modalVehicleInfo()}
       <div>
         <h2>
           <p>Choferes por pais</p>
@@ -201,7 +227,7 @@ const MainChoferes = () => {
         </div>
       </div>
       <div>
-        <FilteredGrid ref={grid} columns={columns} rows={rows} rowClassName={record=>record.state === "Activo" ? "rowGreen" : "rowRed"} />
+        <FilteredGrid ref={grid} columns={columns} rows={rows} rowClassName={record => record.state === "Activo" ? "rowGreen" : "rowRed"} />
       </div>
     </>
   );
