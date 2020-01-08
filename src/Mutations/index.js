@@ -243,3 +243,31 @@ mutation updateState($idagent: Int){
   }
 }
 `
+
+export const ACTUALIZAR_CATEGORIA_VEHICULO = gql`
+mutation updateSkiperVehicleCatTravel($idVehicle: Int, $idCatTravel: Int){
+  updateSkiperVehicleCatTravel(idVehicle: $idVehicle,idCatTravel: $idCatTravel){
+    id
+    license_plate
+    skiperCatTravel{
+      id
+      name
+    }
+    vehicleCatalog{
+      id
+      name
+    }
+    vehicleTrademark {
+      id
+      name
+    }
+    vehicleModel{
+      id
+      name
+    }
+    vehicleYear{
+      year
+    }
+  }
+}
+`
