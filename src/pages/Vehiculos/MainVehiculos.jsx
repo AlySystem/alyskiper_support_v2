@@ -5,6 +5,7 @@ import { navigate } from '@reach/router'
 import NuevaMarca from './NuevaMarca'
 import NuevoAnio from './NuevoAnio'
 import NuevoModelo from './NuevoModelo'
+import CambiarCategoria from './CambiarCategoria'
 import FilteredGrid from '../../components/filteredGrid/FilteredGrid'
 import { USUARIO_POR_EMAIL } from '../../Queries/index'
 import { VEHICULO_USUARIO } from '../../Queries/index'
@@ -42,6 +43,17 @@ const MainVehiculos = () => {
         setmodalNuevoModeloVisible(false)
     }
 
+    /* Eventos de Modal Cambiar Categoria */
+    const [vehicleId, setVehicleId] = useState()
+    const [modalCambiarCatVisible, setmodalCambiarCatVisible] = useState()
+
+    const showCambiarCat = () => {
+        setmodalCambiarCatVisible(true)
+    }
+    const handleCambiarCatOk = (e) => {
+        setmodalCambiarCatVisible(false)
+    }
+
     /*-- Obtencion de usuarios --*/
     const [email, setEmail] = useState()
     const [userId, setUserId] = useState()
@@ -55,12 +67,17 @@ const MainVehiculos = () => {
         variables: { id: userId },
         onCompleted: (vehiculos) => {
             console.log("los vehiculos", vehiculos)
+            if (!vehiculos.getVehicleByUserId)
+                return
+
             const finalRows = [{
+                id: vehiculos.getVehicleByUserId.id,
                 license_plate: vehiculos.getVehicleByUserId.license_plate,
                 trademark: vehiculos.getVehicleByUserId.vehicleTrademark.name,
                 model: vehiculos.getVehicleByUserId.vehicleModel.name,
                 year: vehiculos.getVehicleByUserId.vehicleYear.year,
-                cattravel: vehiculos.getVehicleByUserId.skiperCatTravel.name
+                cattravel: vehiculos.getVehicleByUserId.skiperCatTravel.name,
+                changeCat: <button onClick={ _ =>{ showCambiarCat(); setVehicleId(vehiculos.getVehicleByUserId.id) } }>Cambiar</button>
             }]
 
             setVehiculos(finalRows)
@@ -92,6 +109,10 @@ const MainVehiculos = () => {
         title: "Categoria de Viaje",
         dataIndex: "cattravel",
         key: "5"
+    }, {
+        title: "Cambiar Categoria",
+        dataIndex: "changeCat",
+        key: "6"
     }
     ]
 
@@ -149,6 +170,18 @@ const MainVehiculos = () => {
                 >
                     <NuevoModelo callback={handleModalNuevoModeloOk}></NuevoModelo>
                 </Modal>
+                <Modal
+                    title="Cambiar Categoria"
+                    visible={modalCambiarCatVisible}
+                    onOk={handleCambiarCatOk}
+                    onCancel={handleCambiarCatOk}
+                    footer={null}
+                    destroyOnClose={true}
+                    maskClosable={true}
+                >
+                    <CambiarCategoria callback={handleCambiarCatOk} vehicleId={vehicleId}/>
+                </Modal>
+
                 <div style={{ display: "flex", flexWrap: "wrap", alignItems: "vertical" }} >
                     <div className="separador">
                         <button onClick={() => navigate('/vehiculos/nuevo')}>Nuevo Vehiculo</button>
@@ -171,11 +204,11 @@ const MainVehiculos = () => {
                         <input id="email" placeholder="Email" />
                     </div>
                     <div>
-                        <br/>
+                        <br />
                         <button onClick={findUserButtomHandler}>Buscar por email</button>
                     </div>
                 </div>
-                
+
                 <div>
                     <FilteredGrid columns={columns} rows={vehiculos} />
                 </div>
