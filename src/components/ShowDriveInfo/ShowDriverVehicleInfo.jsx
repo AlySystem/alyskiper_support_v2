@@ -16,6 +16,7 @@ const ShowDriverVehicleInfo = (props) => {
             if (!data.getVehicleByUserId) {
                 alert("Usuario no tiene vehiculo Asignado");
                 if (props.callback) props.callback()
+                return
             }
             setVehicleId(data.getVehicleByUserId.id)
             console.log("El user " + props.idUser);
