@@ -226,8 +226,7 @@ const Login = props => {
 				</div>
 				<div align="right">
 					<button
-						type="primary"
-						htmlType="submit"
+						type="submit"
 						className="login-form-button">
 						Iniciar Sesion
         			</button>

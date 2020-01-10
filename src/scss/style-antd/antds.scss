@@ -82,3 +82,7 @@
 .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-ellipsis, .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-ellipsis {
     color: white;
 }
+
+.ant-table-tbody > tr.ant-table-row-level-0:hover > td {
+    background: gray!important;
+}

@@ -212,11 +212,54 @@ th {
 }
 
 .rowRed {
-    background: red;
-    background-color: red;
+    background: rgba(255, 0, 0, 0.700);
+    background-color: rgba(255, 0, 0, 0.700);
 }
 
 .rowGreen {
-    background: green;
-    background-color: green;
+    background: rgba(0, 128, 0, 0.700);
+    background-color: rgba(0, 128, 0, 0.700);
 }
+
+/*para armar un menu*/
+.nav {
+    //width:500px; /*Le establecemos un ancho*/
+    margin:0 auto; /*Centramos automaticamente*/
+}
+
+.nav > li {
+    float:left;
+}
+
+.nav li a {
+    border-radius: 10px;
+    background-color:#46b5d1;
+    color:#fff;
+    text-decoration:none;
+    padding:10px 12px;
+    display:block;
+}
+
+.nav li a:hover {
+    background-color:#434343;
+}
+
+.nav li ul {
+    display:none;
+    position:absolute;
+    min-width:140px;
+}
+
+.nav li:hover > ul {
+    display:block;
+}
+
+.nav li ul li {
+    position:relative;
+}
+
+.nav li ul li ul {
+    //right:-140px;
+    top:0px;
+}
+/*-------------------*/

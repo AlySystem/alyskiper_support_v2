@@ -271,3 +271,34 @@ mutation updateSkiperVehicleCatTravel($idVehicle: Int, $idCatTravel: Int){
   }
 }
 `
+export const CREAR_REGISTRO_FOTOS_VEHICULO = gql`
+mutation createUploadVehicleAppearance($input: UploadVehicleAppearanceInput!){
+  createUploadVehicleAppearance(input: $input){
+    id
+    url_img_vehicle_front
+    url_img_vehicle_behind
+    url_img_vehicle_side_right
+    url_img_vehicle_side_left
+    url_img_vehicle_inside_one
+    url_img_vehicle_inside_two
+    url_img_vehicle_inside_three
+    url_img_vehicle_inside_four
+  }
+}
+`
+
+export const ACTUALIZA_REGISTRO_FOTOS_VEHICULO = gql`
+mutation updateUploadVehicleAppearance($input: UploadVehicleAppearanceInput!){
+  updateUploadVehicleAppearance(input: $input){
+    id
+    url_img_vehicle_front
+    url_img_vehicle_behind
+    url_img_vehicle_side_right
+    url_img_vehicle_side_left
+    url_img_vehicle_inside_one
+    url_img_vehicle_inside_two
+    url_img_vehicle_inside_three
+    url_img_vehicle_inside_four
+  }
+}
+`

@@ -222,6 +222,9 @@ query getVehicleByUserId ($id: Int!) {
     vehicleYear {
       year
     }
+    uploadVehicleAppearance {
+      id
+    }
   }
 }
 `;
@@ -684,3 +687,97 @@ query getAllImages($idagent:Int)
   }
 }
 `
+
+export const OBTENER_IMAGENES_VEHICULO = gql`
+query getByIdUploadVehicleAppearance ($id: Int!) {
+  getByIdUploadVehicleAppearance (id: $id) {
+    id
+    url_img_vehicle_front
+    url_img_vehicle_behind
+    url_img_vehicle_side_right
+    url_img_vehicle_side_left
+    url_img_vehicle_inside_one
+    url_img_vehicle_inside_two
+    url_img_vehicle_inside_three
+    url_img_vehicle_inside_four
+  }
+}
+`;
+
+export const OBTENER_TRAVELS_INFO = gql`
+query {
+  getAllTravels {
+      id
+      lat_initial
+      lng_initial
+      users {
+        id
+        firstname
+        lastname
+      }
+      skiperagent {
+        id
+        state
+        skiperVehicleAgent {
+          id
+          skiperVehicle {
+            license_plate
+            uploadVehicleAppearance {
+              url_img_vehicle_side_right
+            }
+            vehicleTrademark {
+              name
+            }
+            vehicleModel {
+              name
+            }
+          }
+        }
+        user {
+          id
+          firstname
+          lastname
+          avatar
+        }
+      }
+      skiperTravelsTracing {
+        id
+        travelstatus {
+          id
+          name
+        }
+        datetracing
+      }
+      distance
+    }
+  }
+`;
+
+export const OBTENER_ULTIMOS_USUARIOS_CREADOS = gql`
+query getLastSkiperUsers($limit:Int){
+ 	getLastSkiperUsers(limit:$limit){
+    id
+    firstname
+    lastname
+    email
+    phone
+    create_at
+    skiperAgent{
+      id
+      identity
+    }
+    country{
+      id
+      name
+    }
+    city{
+      id
+      name
+    }
+    skiperWallet{
+      id
+      amount
+    }
+  }
+}
+`;

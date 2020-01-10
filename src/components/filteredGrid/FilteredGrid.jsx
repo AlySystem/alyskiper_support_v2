@@ -41,7 +41,7 @@ const FilteredGrid = forwardRef((props, ref) => {
           ref={node => {
             setSearchInfo(node);
           }}
-          placeholder={`Search ${dataIndex}`}
+          placeholder={`Buscar ${dataIndex}`}
           value={selectedKeys[0]}
           onChange={e =>
             setSelectedKeys(e.target.value ? [e.target.value] : [])

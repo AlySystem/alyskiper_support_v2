@@ -29,6 +29,10 @@ import NuevoEj from '../Ejecutivos/NuevoEj'
 import AlyChat from '../../components/chat/AlyChat'
 import UpdatePassword from '../Usuarios/UpdatePassword'
 import Gmap from '../Dashboard/Gmap'
+import Websocket from '../Dashboard/websocket'
+import UsuariosConectados from '../Dashboard/UsuariosConectados'
+import UltimosUsuarios from '../Usuarios/UltimosUsuarios'
+
 // import logo2 from "../../assets/img/AlySkiper vectorizado y registrado SIN DEGRADAR (1).png";
 // import Img from "../../components/img/Img";
 const { Header, Content, Footer, Sider } = Layout;
@@ -126,6 +130,9 @@ const Home = props => {
               <NuevoEj path="/ej/nuevo"/>
               <AlyChat path="/chat"/>
               <Gmap path="/gmap"/>
+              <Websocket path='/websock'/>
+              <UsuariosConectados path="/lastTravel"/>
+              <UltimosUsuarios path="/lastUsers"/>
             </Router>
           </div>
         </Content>

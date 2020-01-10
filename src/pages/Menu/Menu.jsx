@@ -113,6 +113,12 @@ const MenuMain = () => {
           <Menu.Item key="2">
             <Link to="/usuarios/updatePassword"><div>Cambiar Contraseña</div></Link>
           </Menu.Item>
+          <Menu.Item key="3">
+            <Link to="/lastTravel"><div>Ultimos Viajes</div></Link>
+          </Menu.Item>
+          <Menu.Item key="4">
+            <Link to="/lastUsers"><div>Ultimos Usuarios</div></Link>
+          </Menu.Item>
         </SubMenu>
         <SubMenu
           key="sub6"
