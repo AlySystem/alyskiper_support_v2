@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import CountriesSelect from '../../components/countriesSelect/CountriesSelect'
 import CurrenciesSelect from '../../components/CurrencySelect/CurrencySelect'
 import UserInfo from '../../components/UserInfo/UserInfo'
-import { NUEVO_WALLET } from '../../Mutations/index'
+import { NUEVA_WALLET_LOCAL, NUEVA_WALLET_CRYPTO } from '../../Mutations/index'
 import { useMutation } from '@apollo/react-hooks'
 import useForm from 'react-hook-form'
 import {navigate} from '@reach/router'
+import { useRef } from 'react'
 const NuevoWallet = () => {
 
     const [userData, setUserData] = useState()
@@ -15,13 +16,20 @@ const NuevoWallet = () => {
         setUserData(data)
     }
 
-    const [createWallet] = useMutation(NUEVO_WALLET, {
+    const [createWalletLocal] = useMutation(NUEVA_WALLET_LOCAL, {
         onCompleted: (data) => {console.log("Logro ingresar el wallet"); console.log(data); navigate('/wallet') },
         onError: (error) => { console.error(error) }
     })
+    const [createWalletCrypto] = useMutation(NUEVA_WALLET_CRYPTO, {
+        onCompleted: (data) => {console.log("Logro ingresar el wallet Crypto"); console.log(data); navigate('/wallet') },
+        onError: (error) => { console.error(error) }
+    })
+
 
     const agregarWalletHandler = (values) => {
         console.log(values)
+
+        let currency = JSON.parse(values.idcurrency)
 
         if (!userData) {
             console.log("seteo error")
@@ -33,7 +41,7 @@ const NuevoWallet = () => {
         const input = {
             iduser: userData.id,
             amount: 0,
-            idcurrency: parseInt(values.idcurrency),
+            idcurrency: parseInt(currency.id),
             idcountry: parseInt(values.idcountry),
             minimun: 0,
             bretirar: false,
@@ -41,9 +49,16 @@ const NuevoWallet = () => {
         }
         console.log({ input: input })
 
-        createWallet({
-            variables: {input: input}
-        })
+        if(currency.isCrypto){
+            createWalletCrypto({
+                variables:{input:input}
+            })
+        } else {
+            createWalletLocal({
+                variables:{input:input}
+            })
+        }
+        
     }
 
     return (

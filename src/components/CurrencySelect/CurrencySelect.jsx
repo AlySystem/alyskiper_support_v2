@@ -10,7 +10,11 @@ const CurrencySelect = (props) => {
     const getOptions = () => {
         return (
             data.currency.map(x => {
-                return <option key={x.id} value={x.id}>{x.name}</option>
+                let obj = {
+                    id: x.id,
+                    isCrypto: x.isCrypto
+                }
+                return <option key={x.id} value={ JSON.stringify(obj) }>{x.name}</option>
             })
         )
     }

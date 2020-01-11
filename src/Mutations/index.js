@@ -192,17 +192,6 @@ mutation signup($input: UserInput!) {
   
 `;
 
-export const NUEVO_WALLET = gql`
-mutation registerSkiperWallet($input: SkiperWalletInput!){
-  registerSkiperWallet(input:$input){
-    id
-    amount
-    date_in
-    minimun
-    bretirar   
-  }
-}
-`
 export const REGISTRAR_TRANSACCION_WALLET = gql`
 mutation registerDepositWallet(
   $idwallet: Int!,
@@ -302,3 +291,24 @@ mutation updateUploadVehicleAppearance($input: UploadVehicleAppearanceInput!){
   }
 }
 `
+export const NUEVA_WALLET_LOCAL = gql`
+mutation registerSkiperLocalWallet($input: SkiperWalletInput!){
+  registerSkiperLocalWallet(input:$input){
+    id
+    amount
+    date_in
+    minimun
+    bretirar   
+  }
+}`
+
+export const NUEVA_WALLET_CRYPTO = gql`
+mutation registerSkiperCryptoWallet($input: SkiperWalletInput!){
+  registerSkiperCryptoWallet(input:$input){
+    id
+    amount
+    date_in
+    minimun
+    bretirar   
+  }
+}`

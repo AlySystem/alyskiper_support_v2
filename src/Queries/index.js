@@ -553,6 +553,10 @@ query currency {
   currency {
     id
     name
+    isCrypto
+    idcountry
+    iso
+    url_img
   }
 }
 `

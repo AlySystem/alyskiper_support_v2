@@ -71,7 +71,7 @@ const RecargaWallet = () => {
                         <WalletsFromUserSelect register={register} name="walletId" userId={userId} />
                         {errors.walletId && <h4><p>"Debe seleccionar un wallet"</p></h4>}
                         <label>Monto</label>
-                        <input name="amount" ref={register} type="number" />
+                        <input name="amount" step=".01" ref={register} type="number" />
                         {errors.amount && <h4><p>Ingresa un monto</p></h4>}
                     </div>
                     <div>
