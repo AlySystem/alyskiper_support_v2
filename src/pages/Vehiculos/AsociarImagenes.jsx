@@ -111,7 +111,8 @@ const AsociarImagenes = (props) => {
         }
         console.log(objImg)
         /*+++++++++++++++++++CALL MUTATION HERE+++++++++++++++++*/
-        if (!vehicleImgData.getByIdUploadVehicleAppearance) {
+        
+        if (!vehicleImgData) {
             await createImageRow({
                 variables: {
                     input: {
