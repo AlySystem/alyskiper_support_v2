@@ -13,7 +13,7 @@ const AsociarVehiculo = () => {
 
     const [vehiculoObject, setVehiculoObject] = useState()
     const [usuarioObject, setUsuarioObject] = useState()
-    const [agenteObjet, setAgenteObjet] = useState()
+    const [agenteObject, setAgenteObjet] = useState()
 
     const [loadAgentData] = useLazyQuery(AGENTE_POR_USUARIO, {
         onError: (error) => console.error(error),
@@ -51,7 +51,7 @@ const AsociarVehiculo = () => {
         console.log("el objeto vehiculo")
         console.log(vehiculoObject)
         console.log("el objeto agente")
-        console.log(agenteObjet)
+        console.log(agenteObject)
         console.log("isOwner: ", isOwner.checked)
         if (!usuarioObject) {
             error = "usuario no esta definido"
@@ -61,14 +61,14 @@ const AsociarVehiculo = () => {
             error = "vehiculo no esta definido"
             return
         }
-        if (!agenteObjet) {
+        if (!agenteObject) {
             error = "No se logro obtener la informacion del agente"
             return
         }
 
         console.log("el input, ",{
             input: {
-                idagent: agenteObjet.id,
+                idagent: agenteObject.id,
                 idvehicle: vehiculoObject.id,
                 isowner: isOwner.checked ? 1 : 0
             }
@@ -77,7 +77,7 @@ const AsociarVehiculo = () => {
         addVehicleToAgent({
             variables: {
                 input: {
-                    idagent: agenteObjet.id,
+                    idagent: agenteObject.id,
                     idvehicle: vehiculoObject.id,
                     isowner: isOwner.checked ? 1 : 0
                 }

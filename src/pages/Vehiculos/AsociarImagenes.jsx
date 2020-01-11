@@ -3,7 +3,7 @@ import { OBTENER_IMAGENES_VEHICULO, VEHICULO_USUARIO } from '../../Queries/index
 import { CREAR_REGISTRO_FOTOS_VEHICULO, ACTUALIZA_REGISTRO_FOTOS_VEHICULO } from '../../Mutations/index'
 import { useQuery, useMutation, useLazyQuery } from '@apollo/react-hooks'
 import ImgSelector from '../../components/ImgSelector/ImgSelector'
-import { uploadImg } from '../../utils/Uploader'
+import uploadFile from '../../utils/Uploader'
 
 const AsociarImagenes = (props) => {
 
@@ -21,12 +21,12 @@ const AsociarImagenes = (props) => {
     })
 
     const [createImageRow, { data: createImageRowData }] = useMutation(CREAR_REGISTRO_FOTOS_VEHICULO, {
-        onCompleted: data => { console.log("Se creo el registro exitosamente"); console.log(data) },
+        onCompleted: data => { alert('Se guardo las imagenes correctamente');console.log("Se creo el registro exitosamente"); console.log(data); if(props.callback) props.callback()},
         onError: (err) => { console.log("error"); console.log(err) }
     })
 
     const [updateImageRow, { data: updateImageRowData }] = useMutation(ACTUALIZA_REGISTRO_FOTOS_VEHICULO, {
-        onCompleted: data => { console.log("Se actualizo el registro exitosamente"); console.log(data) },
+        onCompleted: data => { alert('Se guardo las imagenes correctamente');console.log("Se actualizo el registro exitosamente"); console.log(data);if(props.callback) props.callback() },
         onError: (err) => { console.log("error"); console.log(err) }
     })
 
@@ -42,9 +42,12 @@ const AsociarImagenes = (props) => {
                         }
                     })
                 } else {
-                    alert("El usuario no tiene vehiculo asignado")
-
                     console.log("no hay registro de imagenes")
+                }
+            } else {
+                alert("El usuario no tiene vehiculo asignado")
+                if (props.callback) {
+                    props.callback()
                 }
             }
             console.log(data)
@@ -56,48 +59,71 @@ const AsociarImagenes = (props) => {
         let campo = getSelectedValue()
 
         console.log("el campo " + campo)
+        let image = imgMap.get(campo)
 
-        setImgsrc(imgMap.get(campo) ? imgMap.get(campo).img : null)
+        if (image == null) {
+            setImgsrc(null)
+            return
+        }
+
+        console.log(image)
+        console.log(typeof (image.img))
+        if (typeof (image.img) == 'string') {
+            setImgsrc(image.img)
+        } else {
+            let reader = new FileReader()
+            reader.onload = function (e) {
+                setImgsrc(e.target.result)
+            }
+
+            reader.readAsDataURL(image.img);
+        }
     }
 
     const cbSelector = (img) => {
         setImgsrc(img)
+        console.log("tipo de imagen regresada")
+        console.log(typeof (img))
+        console.log(img)
 
-        if (typeof (img) != 'string') {
+        if (typeof (img) == 'object') {
             let mapa = imgMap
-            console.log("tipo de imagen regresada")
-            console.log(typeof (img))
-
             mapa.set(getSelectedValue(), valueFromImage(img, true))
-            setImgsrc(mapa)
+            setImgMap(mapa)
         }
     }
 
     const subirImagenes = async _ => {
 
         let objImg = {}
-
+        console.log(imgMap)
         for (let key of imgMap.keys()) {
             let item = imgMap.get(key)
-            if (item.edited) {
-                let url = await uploadImg(imgMap.get(key).img, "imageFromSupport")
-                objImg[key] = url;
+            console.log(item, key)
+
+            if (item) {
+                if (item.edited) {
+                    let imageFile = imgMap.get(key).img
+                    let url = await uploadFile(imageFile, imageFile.name)
+                    objImg[key] = url;
+                }
             }
         }
+        console.log(objImg)
         /*+++++++++++++++++++CALL MUTATION HERE+++++++++++++++++*/
         if (!vehicleImgData.getByIdUploadVehicleAppearance) {
             await createImageRow({
                 variables: {
                     input: {
-                        url_img_vehicle_front : objImg.url_img_vehicle_front,
-                        url_img_vehicle_behind : objImg.url_img_vehicle_behind,
-                        url_img_vehicle_side_right : objImg.url_img_vehicle_side_right,
-                        url_img_vehicle_side_left : objImg.url_img_vehicle_side_left,
-                        url_img_vehicle_inside_one : objImg.url_img_vehicle_inside_one,
-                        url_img_vehicle_inside_two : objImg.url_img_vehicle_inside_two,
-                        url_img_vehicle_inside_three : objImg.url_img_vehicle_inside_three,
-                        url_img_vehicle_inside_four : objImg.url_img_vehicle_inside_four,
-                        idvehicle : vehicleData.getVehicleByUserId.id,
+                        url_img_vehicle_front: objImg.url_img_vehicle_front,
+                        url_img_vehicle_behind: objImg.url_img_vehicle_behind,
+                        url_img_vehicle_side_right: objImg.url_img_vehicle_side_right,
+                        url_img_vehicle_side_left: objImg.url_img_vehicle_side_left,
+                        url_img_vehicle_inside_one: objImg.url_img_vehicle_inside_one,
+                        url_img_vehicle_inside_two: objImg.url_img_vehicle_inside_two,
+                        url_img_vehicle_inside_three: objImg.url_img_vehicle_inside_three,
+                        url_img_vehicle_inside_four: objImg.url_img_vehicle_inside_four,
+                        idvehicle: vehicleData.getVehicleByUserId.id,
                     }
                 }
             })
@@ -105,16 +131,31 @@ const AsociarImagenes = (props) => {
             await updateImageRow({
                 variables: {
                     input: {
-                        url_img_vehicle_front : objImg.url_img_vehicle_front,
-                        url_img_vehicle_behind : objImg.url_img_vehicle_behind,
-                        url_img_vehicle_side_right : objImg.url_img_vehicle_side_right,
-                        url_img_vehicle_side_left : objImg.url_img_vehicle_side_left,
-                        url_img_vehicle_inside_one : objImg.url_img_vehicle_inside_one,
-                        url_img_vehicle_inside_two : objImg.url_img_vehicle_inside_two,
-                        url_img_vehicle_inside_three : objImg.url_img_vehicle_inside_three,
-                        url_img_vehicle_inside_four : objImg.url_img_vehicle_inside_four,
-                        idvehicle : vehicleData.getVehicleByUserId.id,
+                        id: vehicleImgData.getByIdUploadVehicleAppearance.id,
+                        url_img_vehicle_front: objImg.url_img_vehicle_front,
+                        url_img_vehicle_behind: objImg.url_img_vehicle_behind,
+                        url_img_vehicle_side_right: objImg.url_img_vehicle_side_right,
+                        url_img_vehicle_side_left: objImg.url_img_vehicle_side_left,
+                        url_img_vehicle_inside_one: objImg.url_img_vehicle_inside_one,
+                        url_img_vehicle_inside_two: objImg.url_img_vehicle_inside_two,
+                        url_img_vehicle_inside_three: objImg.url_img_vehicle_inside_three,
+                        url_img_vehicle_inside_four: objImg.url_img_vehicle_inside_four,
+                        idvehicle: vehicleData.getVehicleByUserId.id,
                     }
+                }
+            })
+            console.log({
+                input: {
+                    id: vehicleImgData.getByIdUploadVehicleAppearance.id,
+                    url_img_vehicle_front: objImg.url_img_vehicle_front,
+                    url_img_vehicle_behind: objImg.url_img_vehicle_behind,
+                    url_img_vehicle_side_right: objImg.url_img_vehicle_side_right,
+                    url_img_vehicle_side_left: objImg.url_img_vehicle_side_left,
+                    url_img_vehicle_inside_one: objImg.url_img_vehicle_inside_one,
+                    url_img_vehicle_inside_two: objImg.url_img_vehicle_inside_two,
+                    url_img_vehicle_inside_three: objImg.url_img_vehicle_inside_three,
+                    url_img_vehicle_inside_four: objImg.url_img_vehicle_inside_four,
+                    idvehicle: vehicleData.getVehicleByUserId.id,
                 }
             })
         }

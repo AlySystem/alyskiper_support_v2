@@ -9,6 +9,7 @@ import { navigate } from "@reach/router";
 import { Modal } from 'antd'
 import ShowDriveInfo from '../../components/ShowDriveInfo/ShowDriveInfo'
 import ShowDriverVehicleInfo from "../../components/ShowDriveInfo/ShowDriverVehicleInfo";
+import AsociarImagenes from "../Vehiculos/AsociarImagenes";
 //import logger from '../../utils/LogConfig'
 
 const MainChoferes = () => {
@@ -53,8 +54,8 @@ const MainChoferes = () => {
             identity: item.identity,
             create_at: item.user.create_at,
             state: item.state ? "Activo" : "Inactivo",
-            showInfo: <button onClick={() => { setModalSoporteVisible(true); setModalAgentId(item.id) }}> Soportes</button>,
-            showVehicle: <button onClick={() => { setModalVehicleInfoVisible(true); setUserId(item.user.id) }}>Vehiculo</button>
+            showInfo: (crearMenu(item.id,item.user.id)) , //<button onClick={() => { setModalSoporteVisible(true); setModalAgentId(item.id) }}> Soportes</button>,
+            //showVehicle: <button onClick={() => { setModalVehicleInfoVisible(true); setUserId(item.user.id) }}>Vehiculo</button>
             //edit: <button onClick={()=>navigate('/user/edit/' + item.user.id)}>Editar</button>
           };
         }
@@ -113,13 +114,9 @@ const MainChoferes = () => {
           dataIndex: "create_at",
           key: "8"
         }, {
-          title: "Soportes",
+          title: "Acciones",
           dataIndex: "showInfo",
           key: "9"
-        }, {
-          title: "Vehiculo",
-          dataIndex: "showVehicle",
-          key: "10"
         }
 
       ];
@@ -190,10 +187,42 @@ const MainChoferes = () => {
     </>)
   }
 
+  const [modalVehicleImgVisible, setModalVehicleImgVisible] = useState(false)
+  const modalVehicleImg = () => {
+    return (<>
+      <Modal
+        title="Soportes de Conductor"
+        visible={modalVehicleImgVisible}
+        footer={null}
+        destroyOnClose={true}
+        width="50%"
+        onCancel={() => { setModalVehicleImgVisible(false) }}>
+        <div align="center" >
+          <AsociarImagenes userId={userId} callback = {() => {setModalVehicleImgVisible(false)}}/>
+        </div>
+      </Modal>
+    </>)
+  }
+
+  const crearMenu = (agentId,userId) => {
+    return(<nav>
+      <ul className="nav">
+        <li><a href="#">Acciones</a>
+          <ul>
+            <li><a onClick={() => { setModalSoporteVisible(true); setModalAgentId(agentId) }}>Soportes</a></li>
+            <li><a onClick={() => { setModalVehicleInfoVisible(true); setUserId(userId) }}>Vehiculo</a></li>
+            <li><a onClick={() => { setModalVehicleImgVisible(true); setUserId(userId) }}>Editar Soportes</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>)
+  }
+
   return (
     <>
       {modalSoportes()}
       {modalVehicleInfo()}
+      {modalVehicleImg()}
       <div>
         <h2>
           <p>Choferes por pais</p>
