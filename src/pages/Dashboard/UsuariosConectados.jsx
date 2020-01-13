@@ -82,7 +82,7 @@ const UsuariosConectados = _ => {
     }
 
     const getRowClass = (record) => {
-        const arrVerde = [1, 2, 3, 4, 5, 6, 7]
+        const arrVerde = [1, 2, 3, 4, 5, 6, 7, 8]
         if (arrVerde.includes(record.idEstado)) {
             return "rowGreen"
         } else {

@@ -99,6 +99,169 @@ const mapstyle = [
     }
 ]
 
+const skiperMapStyle = [
+    {
+        elementType: 'geometry',
+        stylers: [
+            {
+                color: '#242f3e'
+            }
+        ]
+    },
+    {
+        elementType: 'labels.text.fill',
+        stylers: [
+            {
+                color: '#03f9fc'
+            }
+        ]
+    },
+    {
+        elementType: 'labels.text.stroke',
+        stylers: [
+            {
+                color: '#242f3e'
+            }
+        ]
+    },
+    {
+        featureType: 'administrative.locality',
+        elementType: 'labels.text.fill',
+        stylers: [
+            {
+                color: '#03f9fc'
+            }
+        ]
+    },
+    {
+        featureType: 'poi',
+        elementType: 'labels.text.fill',
+        stylers: [
+            {
+                color: '#03f9fc'
+            }
+        ]
+    },
+    {
+        featureType: 'poi.park',
+        elementType: 'geometry',
+        stylers: [
+            {
+                color: '#263c3f'
+            }
+        ]
+    },
+    {
+        featureType: 'poi.park',
+        elementType: 'labels.text.fill',
+        stylers: [
+            {
+                color: '#6b9a76'
+            }
+        ]
+    },
+    {
+        featureType: 'road',
+        elementType: 'geometry',
+        stylers: [
+            {
+                color: '#38414e'
+            }
+        ]
+    },
+    {
+        featureType: 'road',
+        elementType: 'geometry.stroke',
+        stylers: [
+            {
+                color: '#212a37'
+            }
+        ]
+    },
+    {
+        featureType: 'road',
+        elementType: 'labels.text.fill',
+        stylers: [
+            {
+                color: '#9ca5b3'
+            }
+        ]
+    },
+    {
+        featureType: 'road.highway',
+        elementType: 'geometry',
+        stylers: [
+            {
+                color: '#000024'
+            }
+        ]
+    },
+    {
+        featureType: 'road.highway',
+        elementType: 'geometry.stroke',
+        stylers: [
+            {
+                color: '#1f2835'
+            }
+        ]
+    },
+    {
+        featureType: 'road.highway',
+        elementType: 'labels.text.fill',
+        stylers: [
+            {
+                color: '#029d9d'
+            }
+        ]
+    },
+    {
+        featureType: 'transit',
+        elementType: 'geometry',
+        stylers: [
+            {
+                color: '#2f3948'
+            }
+        ]
+    },
+    {
+        featureType: 'transit.station',
+        elementType: 'labels.text.fill',
+        stylers: [
+            {
+                color: '#03f9fc'
+            }
+        ]
+    },
+    {
+        featureType: 'water',
+        elementType: 'geometry',
+        stylers: [
+            {
+                color: '#17263c'
+            }
+        ]
+    },
+    {
+        featureType: 'water',
+        elementType: 'labels.text.fill',
+        stylers: [
+            {
+                color: '#515c6d'
+            }
+        ]
+    },
+    {
+        featureType: 'water',
+        elementType: 'labels.text.stroke',
+        stylers: [
+            {
+                color: '#17263c'
+            }
+        ]
+    }
+]
+
+
 const Mapa = compose(
     withProps({
         googleMapURL: GmapURL,
@@ -182,7 +345,7 @@ const Mapa = compose(
 
         var label = {
             text: key,
-            color: '#000',
+            color: 'white',
             fontSize: '14px',
             fontWeight: 'bold'
         }
@@ -244,11 +407,11 @@ const Mapa = compose(
 
     const mi_casa = { lat: 11.9847679, lng: -86.0973747 }
     const casa_jefe = { lat: 12.0320281, lng: -86.1929273 }
-    
+
     return (<>
-        
-        <GoogleMap 
-            defaultOptions={{styles: mapstyle}}
+
+        <GoogleMap
+            defaultOptions={{ styles: skiperMapStyle }}
             defaultZoom={13}
             defaultCenter={casa_jefe}
         >
