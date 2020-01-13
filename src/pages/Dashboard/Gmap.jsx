@@ -7,9 +7,10 @@ import PubNub from 'pubnub'
 const key = 'AIzaSyDRc0P0ozp5BU98gDG06OXbFaGk3OiOYxw'
 const GmapURL = `https://maps.googleapis.com/maps/api/js?key=${key}&callback=initMap`
 
-const PubNubPublishKey = "pub-c-81a014c6-50ba-4add-9ec6-f19993758a73"
-const PubNubSubscribeKey = "sub-c-c74997b4-eb99-11e9-ad72-8e6732c0d56b"
-
+const PubNubPublishKey = "pub-c-79890746-813e-461c-8a18-c33bd2309b50"
+const PubNubSubscribeKey = "sub-c-3a83e92a-35b2-11ea-81d4-f6d34a0dd71d"
+//pub-c-79890746-813e-461c-8a18-c33bd2309b50
+//sub-c-3a83e92a-35b2-11ea-81d4-f6d34a0dd71d
 const ChannelSkiperSilver = { channel: "SkiperDrive_1", img: "https://storage.googleapis.com/app_user_bucket/skiper-silver.png" }
 const ChannelSkiperGold = { channel: "SkiperDrive_2", img: "https://storage.googleapis.com/app_user_bucket/skiper-golden.png" }
 const ChannelSkiperVip = { channel: "SkiperDrive_3", img: "https://storage.googleapis.com/app_user_bucket/skiper-vip.png" }
