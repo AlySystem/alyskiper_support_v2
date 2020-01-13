@@ -312,3 +312,37 @@ mutation registerSkiperCryptoWallet($input: SkiperWalletInput!){
     bretirar   
   }
 }`
+
+export const REGISTRAR_TIPO_CAMBIO = gql`
+mutation registerExchangeRate($input: ExchangeRateInput) {
+  registerExchangeRate(input: $input){
+    id
+    value
+    currency{
+      id
+      name
+    }
+    country{
+      id
+      name
+    }
+  }
+}
+`
+
+export const ACTUALIZAR_TIPO_CAMBIO = gql`
+mutation updateExchangeRate($input: ExchangeRateInput) {
+  updateExchangeRate(input: $input){
+    id
+    value
+    currency{
+      id
+      name
+    }
+    country{
+      id
+      name
+    }
+  }
+}
+`

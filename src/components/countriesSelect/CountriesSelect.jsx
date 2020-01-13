@@ -6,18 +6,20 @@ import { useQuery } from '@apollo/react-hooks'
 
 const CountriesSelect = ({ onChange, register, options, name, defvalue,...rest }) => {
 
-    const {
-        data,
-    } = useQuery(COUNTRIES, {
+    const { data } = useQuery(COUNTRIES, {
+        onCompleted: () => { setValue(defvalue) },
+        onError: (err) => { console.log(err)}
     })
     const [value, setValue] = useState()
     useEffect(() => {
-        if (data) {
+        if(!data)
+            return
+        if (data.countries) {
             console.log('obtuvo datos')
             console.log(data)
             setValue(defvalue)
         }
-    }, [data])
+    }, [defvalue])
 
     if (!data) {
         return (<select></select>)

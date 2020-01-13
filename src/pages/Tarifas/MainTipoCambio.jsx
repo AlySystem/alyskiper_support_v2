@@ -3,7 +3,7 @@ import FilteredGrid from '../../components/filteredGrid/FilteredGrid'
 import { useQuery } from 'react-apollo'
 import { OBTENER_TODAS_TASAS_CAMBIO } from '../../Queries'
 import FormularioTipoCambio from './FormularioTIpoCambio'
-import {Modal} from 'antd'
+import { Modal } from 'antd'
 const MainTipoCambio = (props) => {
 
     const columns = [
@@ -23,9 +23,45 @@ const MainTipoCambio = (props) => {
             title: "Fecha",
             dataIndex: "date",
             key: "4"
+        },{
+            title: "Acciones",
+            dataIndex: "actions",
+            key:"5"
         }
     ]
+    
     const [rows, setRows] = useState()
+
+    const crearMenuActions = (id) => {
+        return (<>
+            <button onClick={() => { setExchangeRateId(id); setModalFrmTipoCambio(true);setEdit(true) }}>Editar</button>
+        </>)
+    }
+
+    const [modalFrmTipoCambio, setModalFrmTipoCambio] = useState(false)
+    const [exchangeRateId, setExchangeRateId] = useState()
+    const [edit, setEdit] = useState(false)
+    const modalNuevoTipoCambio = () => {
+        console.log("el exchangerate id ",exchangeRateId)
+        return (<>
+            <Modal
+                title="Tipo de Cambio"
+                visible={modalFrmTipoCambio}
+                onOk={() => setModalFrmTipoCambio(false)}
+                onCancel={() => setModalFrmTipoCambio(false)}
+                footer={null}
+                destroyOnClose={true}
+                maskClosable={true}
+            >
+                <FormularioTipoCambio
+                    edit={edit}
+                    exchangeRateId={exchangeRateId}
+                    callback={() => { setModalFrmTipoCambio(false) }}
+                />
+            </Modal>
+        </>)
+    }
+
 
     const { data: exchangeRateData } = useQuery(OBTENER_TODAS_TASAS_CAMBIO, {
         pollInterval: 3000,
@@ -53,44 +89,17 @@ const MainTipoCambio = (props) => {
                 currency: item.currency.name,
                 value: item.value,
                 date: item.date_in,
-                actions: (crearMenuActions())
+                actions: (crearMenuActions(item.id))
             })
         }
 
         setRows(rows)
     }
 
-    const crearMenuActions = (id) => {
-        return (<>
-            <button onClick={() => { setExchangeRateId(id); setModalFrmTipoCambio(true) }}>Editar</button>
-        </>)
-    }
-
-    const [modalFrmTipoCambio, setModalFrmTipoCambio] = useState(false)
-    const [exchangeRateId, setExchangeRateId] = useState()
-    const modalNuevoTipoCambio = () => {
-        return (<>
-            <Modal
-                title="Tipo de Cambio"
-                visible={modalFrmTipoCambio}
-                onOk={() => setModalFrmTipoCambio(false)}
-                onCancel={() => setModalFrmTipoCambio(false)}
-                footer={null}
-                destroyOnClose={true}
-                maskClosable={true}
-            >
-                <FormularioTipoCambio
-                    exchangeRateId={exchangeRateId}
-                    callback={() => { setModalFrmTipoCambio(false); setExchangeRateId(null) } }
-                />
-            </Modal>
-        </>)
-    }
-
     return (<>
         {modalNuevoTipoCambio()}
         <div><h2><p>Tipos de Cambio</p></h2></div>
-        <div><button>Nuevo</button></div>
+        <div><button onClick={() => { setModalFrmTipoCambio(true);setExchangeRateId(null);setEdit(false) }} >Nuevo</button></div>
         <br />
         <div>
             <FilteredGrid columns={columns} rows={rows} />

@@ -837,26 +837,11 @@ query getByCategoryAgentIdAndCountryId($id:Int!, $idcountry:Int!) {
   }
 }
 `
-export const REGISTRAR_TIPO_CAMBIO = gql`
-mutation registerExchangeRate($input: ExchangeRateInput) {
-  registerExchangeRate(input: $input){
-    id
-    value
-    currency{
-      id
-      name
-    }
-    country{
-      id
-      name
-    }
-  }
-}
-`
 
-export const ACTUALIZAR_TIPO_CAMBIO = gql`
-mutation updateExchangeRate($input: ExchangeRateInput) {
-  updateExchangeRate(input: $input){
+
+export const OBTENER_TIPO_CAMBIO_BY_ID = gql`
+query GetByIdExchangeRate($id: Int!){
+  GetByIdExchangeRate(id: $id){
     id
     value
     currency{
@@ -867,6 +852,7 @@ mutation updateExchangeRate($input: ExchangeRateInput) {
       id
       name
     }
+    date_in
   }
 }
 `
