@@ -6,6 +6,7 @@ import noimage from '../../assets/img/noimage.png'
 
 const ShowDriveInfo = (props) => {
     const { data } = useQuery(OBTENER_TODAS_IMAGENES_AGENTE, {
+        pollInterval:3000,
         variables: {
             idagent: props.agentId
         },
@@ -47,28 +48,32 @@ const ShowDriveInfo = (props) => {
                     <select onChange={onChangeHandler} ref={select}>
                         <option value="url_img_identity">Cédula de Identidad</option>
                         <option value="url_img_verify_identity">Perfil con Cédula</option>
-                        <option value="url_img_letterone_recomendation">Carta de Recomendación 1</option>
-                        <option value="url_img_lettertwo_recomendation">Carta de Recomendación 2</option>
+                        
                         <option value="url_img_driver_license">Licencia</option>
                         <option value="url_img_police_record">Record de Policia</option>
                         <option value="url_img_driving_record">Record de Conducción</option>
+
                         <option value="url_img_vehicle_front">Vehiculo Frente</option>
                         <option value="url_img_vehicle_behind">Vehiculo Atras</option>
                         <option value="url_img_vehicle_side_right">Vehiculo lado Derecho</option>
                         <option value="url_img_vehicle_side_left">Vehiculo lado Izquierdo</option>
+
                         <option value="url_img_vehicle_inside_one">Vehiculo Interior 1</option>
                         <option value="url_img_vehicle_inside_two">Vehiculo Interior 2</option>
                         <option value="url_img_vehicle_inside_three">Vehiculo Interior 3</option>
                         <option value="url_img_vehicle_inside_four">Vehiculo Interior 4</option>
+
                         <option value="url_img_insurance">Seguro Vehicular</option>
                         <option value="url_img_vehicle_circulation">Circulación Vehicular</option>
                         <option value="url_img_mechanical_inspection">Inspeccion Mecanica</option>
                         <option value="url_img_gas_emission">Emision de Gases</option>
                         <option value="url_img_license_plate">Placa</option>
+                        <option value="url_img_letterone_recomendation">Carta de Recomendación 1</option>
+                        <option value="url_img_lettertwo_recomendation">Carta de Recomendación 2</option>
                     </select>
                 </span>
                 <span>
-                    <button onClick={onActivateHandler}>Activar Usuario</button>
+                    <button onClick={onActivateHandler}>Cambiar Estado</button>
                 </span>
             </div>
             <div align="center">

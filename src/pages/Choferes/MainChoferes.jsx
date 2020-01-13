@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import FilteredGrid from "../../components/filteredGrid/FilteredGrid";
-import { PROPIETARIOS_QUERY } from "../../Queries/index";
+import { PROPIETARIOS_QUERY, OBTENER_AGENTES_CATEGORIA_PAIS } from "../../Queries/index";
 import { useLazyQuery } from "@apollo/react-hooks";
 import CountriesSelect from "../../components/countriesSelect/CountriesSelect";
 import CitiesSelect from "../../components/CitiesSelect/CitiesSelect";
@@ -24,8 +24,17 @@ const MainChoferes = () => {
 
   const grid = useRef();
 
-  const [load, { called, loading, data }] = useLazyQuery(PROPIETARIOS_QUERY, {
+  /*const [load, { called, loading, data }] = useLazyQuery(PROPIETARIOS_QUERY, {
     variables: { id: CATEGORIA_DRIVER, idcity: parseInt(cityId) },
+    onCompleted: () => {
+      console.log(data);
+      onLoadData();
+    },
+    pollInterval: 5000
+  })*/
+
+  const [load, { loading, data }] = useLazyQuery(OBTENER_AGENTES_CATEGORIA_PAIS, {
+    variables: { id: CATEGORIA_DRIVER, idcountry: parseInt(countryId) },
     onCompleted: () => {
       console.log(data);
       onLoadData();
@@ -35,31 +44,15 @@ const MainChoferes = () => {
 
   const onLoadData = () => {
     if (data) {
-      console.log({ id: CATEGORIA_DRIVER, idcity: parseInt(cityId) });
-      console.log(data.getByCategoryAgentIdAndCityId);
-      if (data.getByCategoryAgentIdAndCityId.length == 0) {
+      console.log({ id: CATEGORIA_DRIVER, idcountry: parseInt(countryId) });
+      console.log(data.getByCategoryAgentIdAndCountryId);
+      if (data.getByCategoryAgentIdAndCountryId.length == 0) {
         setRows([]);
         return;
       }
 
-      const finalRows = data.getByCategoryAgentIdAndCityId[0].agents.map(
-        item => {
-          return {
-            id: item.user.id,
-            firstname: item.user.firstname,
-            lastname: item.user.lastname,
-            email: item.user.email,
-            address: item.user.address,
-            phone: item.user.phone,
-            identity: item.identity,
-            create_at: item.user.create_at,
-            state: item.state ? "Activo" : "Inactivo",
-            showInfo: (crearMenu(item.id,item.user.id)) , //<button onClick={() => { setModalSoporteVisible(true); setModalAgentId(item.id) }}> Soportes</button>,
-            //showVehicle: <button onClick={() => { setModalVehicleInfoVisible(true); setUserId(item.user.id) }}>Vehiculo</button>
-            //edit: <button onClick={()=>navigate('/user/edit/' + item.user.id)}>Editar</button>
-          };
-        }
-      );
+      setearRows()
+
       if (loading) {
         return (
           <div class="sk-folding-cube">
@@ -121,19 +114,59 @@ const MainChoferes = () => {
 
       ];
       console.log(columns);
-      console.log(finalRows);
-      setRows(finalRows);
+      //  console.log(finalRows);
+      //setRows(finalRows);
       setColumns(columns);
 
       console.log("Entro al useEffect");
     }
   }
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (cityId) {
       load();
     }
-  }, [cityId]);
+  }, [cityId]);*/
+
+  const setearRows = () => {
+    const finalRows = data.getByCategoryAgentIdAndCountryId[0].agents.map(
+      item => {
+        return {
+          id: item.user.id,
+          firstname: item.user.firstname,
+          lastname: item.user.lastname,
+          email: item.user.email,
+          address: item.user.address,
+          phone: item.user.phone,
+          identity: item.identity,
+          create_at: item.user.create_at,
+          state: item.state ? "Activo" : "Inactivo",
+          showInfo: (crearMenu(item.id, item.user.id)), //<button onClick={() => { setModalSoporteVisible(true); setModalAgentId(item.id) }}> Soportes</button>,
+          //showVehicle: <button onClick={() => { setModalVehicleInfoVisible(true); setUserId(item.user.id) }}>Vehiculo</button>
+          //edit: <button onClick={()=>navigate('/user/edit/' + item.user.id)}>Editar</button>
+        };
+      }
+    );
+    setRows(finalRows)
+  }
+
+  useEffect(() => {
+    if(!data)
+      return
+    if(!data.getByCategoryAgentIdAndCountryId)
+      return
+    if(data.getByCategoryAgentIdAndCountryId.length ==0)
+      return
+    
+     setearRows()
+    
+  },[data])
+
+  useEffect(() => {
+    if (countryId) {
+      load();
+    }
+  }, [countryId]);
 
   const countrySelectHandler = e => {
     setCountryId(e.currentTarget.value);
@@ -198,14 +231,14 @@ const MainChoferes = () => {
         width="50%"
         onCancel={() => { setModalVehicleImgVisible(false) }}>
         <div align="center" >
-          <AsociarImagenes userId={userId} callback = {() => {setModalVehicleImgVisible(false)}}/>
+          <AsociarImagenes userId={userId} callback={() => { setModalVehicleImgVisible(false) }} />
         </div>
       </Modal>
     </>)
   }
 
-  const crearMenu = (agentId,userId) => {
-    return(<nav>
+  const crearMenu = (agentId, userId) => {
+    return (<nav>
       <ul className="nav">
         <li><a href="#">Acciones</a>
           <ul>
@@ -247,12 +280,12 @@ const MainChoferes = () => {
           <CountriesSelect onChange={countrySelectHandler} />
         </div>
         <div>
-          <label>Ciudad</label>
+          {/* <label>Ciudad</label>
           <CitiesSelect
             callback={cityCallbackHandler}
             countryId={countryId}
             onChange={citiesSelectHandler}
-          />
+          /> */}
         </div>
       </div>
       <div>

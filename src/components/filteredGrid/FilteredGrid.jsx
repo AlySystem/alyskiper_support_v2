@@ -36,37 +36,38 @@ const FilteredGrid = forwardRef((props, ref) => {
       confirm,
       clearFilters
     }) => (
-      <div style={{ padding: 8 }}>
-        <Input
-          ref={node => {
-            setSearchInfo(node);
-          }}
-          placeholder={`Buscar ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={e =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{ width: 188, marginBottom: 8, display: "block" }}
-        />
-        <Button
-          type="primary"
-          onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          icon="search"
-          size="small"
-          style={{ width: 90, marginRight: 8 }}
-        >
-          Search
+        <div style={{ padding: 8, display: "grid" }}>
+          <Input
+            ref={node => {
+              setSearchInfo(node);
+            }}
+            placeholder={`Buscar ${dataIndex}`}
+            value={selectedKeys[0]}
+            onChange={e =>
+              setSelectedKeys(e.target.value ? [e.target.value] : [])
+            }
+            onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            style={{ width: 165, padding: 4, marginBottom: 8, gridRowStart: 1, gridRowEnd: 2, gridColumnStart: 1, gridColumnEnd: 3 }}
+          />
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon="search"
+            size="small"
+            style={{ width: 80, height: 40, padding: 8, gridRowStart: 2, gridRowEnd: 3, gridColumnStart: 1, gridColumnEnd: 2 }}
+          >
+            Search
         </Button>
-        <Button
-          onClick={() => handleReset(clearFilters)}
-          size="small"
-          style={{ width: 90 }}
-        >
-          Reset
+          <Button
+            type="primary"
+            onClick={() => handleReset(clearFilters)}
+            size="small"
+            style={{ width: 80, height: 40, padding: 8, gridRowStart: 2, gridRowEnd: 3, gridColumnStart: 2, gridColumnEnd: 3 }}
+          >
+            Reset
         </Button>
-      </div>
-    ),
+        </div>
+      ),
     filterIcon: filtered => (
       <Icon type="search" style={{ color: filtered ? "#1890ff" : undefined }} />
     ),
@@ -89,8 +90,8 @@ const FilteredGrid = forwardRef((props, ref) => {
           textToHighlight={text.toString()}
         />
       ) : (
-        text
-      )
+          text
+        )
   });
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();

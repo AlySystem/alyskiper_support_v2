@@ -99,6 +99,17 @@ const MenuMain = () => {
             <Link to="/wallet/recarga">Recargar</Link>
           </Menu.Item>
         </SubMenu>
+        <SubMenu key="subTarifas"
+          title={
+            <span>
+              <Icon type="unordered-list" theme="outlined" />
+              <span>Tarifas</span>
+            </span>
+          }>
+          <Menu.Item key="1">
+          <Link to="/tarifas/tc/main"><div>Tipos de Cambio</div></Link>
+          </Menu.Item>
+        </SubMenu>
         <SubMenu
           key="sub5"
           title={

@@ -12,6 +12,7 @@ const AsociarImagenes = (props) => {
     const select = useRef()
 
     const [loadImgData, { data: vehicleImgData }] = useLazyQuery(OBTENER_IMAGENES_VEHICULO, {
+        pollInterval:3000,
         onCompleted: (data) => {
             setearMapa(data.getByIdUploadVehicleAppearance)
             onChangeHandler()

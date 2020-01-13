@@ -32,6 +32,7 @@ import Gmap from '../Dashboard/Gmap'
 import Websocket from '../Dashboard/websocket'
 import UsuariosConectados from '../Dashboard/UsuariosConectados'
 import UltimosUsuarios from '../Usuarios/UltimosUsuarios'
+import MainTipoCambio from "../Tarifas/MainTipoCambio";
 
 // import logo2 from "../../assets/img/AlySkiper vectorizado y registrado SIN DEGRADAR (1).png";
 // import Img from "../../components/img/Img";
@@ -133,6 +134,7 @@ const Home = props => {
               <Websocket path='/websock'/>
               <UsuariosConectados path="/lastTravel"/>
               <UltimosUsuarios path="/lastUsers"/>
+              <MainTipoCambio path="/tarifas/tc/main"/>
             </Router>
           </div>
         </Content>

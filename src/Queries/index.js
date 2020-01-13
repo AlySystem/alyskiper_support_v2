@@ -785,3 +785,55 @@ query getLastSkiperUsers($limit:Int){
   }
 }
 `;
+
+export const OBTENER_TODAS_TASAS_CAMBIO = gql`
+ query GetAllExchangeRate{
+  GetAllExchangeRate{
+    id
+    value
+    currency{
+      id
+      name
+    }
+    country{
+      id
+      name
+    }
+    date_in
+  }
+}
+`
+
+export const OBTENER_AGENTES_CATEGORIA_PAIS = gql`
+query getByCategoryAgentIdAndCountryId($id:Int!, $idcountry:Int!) {
+  getByCategoryAgentIdAndCountryId(id:$id, idcountry:$idcountry){
+    id
+    name
+    agents{
+      id
+      state
+      identity
+      create_at
+      user{
+          id
+          firstname
+          lastname
+          email
+          phone
+          address
+          create_at
+      }
+      categoryAgent{
+        name
+      }
+      skiperVehicleAgent{
+        skiperVehicle{
+          license_plate
+          
+        }
+      }
+    }
+
+  }
+}
+`
