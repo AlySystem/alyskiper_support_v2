@@ -856,3 +856,33 @@ query GetByIdExchangeRate($id: Int!){
   }
 }
 `
+
+export const OBTENER_VEHICULO_BY_ID = gql`
+query getSkiperVehicleByVehicleId($id: Int!){
+  getSkiperVehicleByVehicleId(id:$id){
+    id
+    license_plate
+    skiperCatTravel{
+      id
+      name
+    }
+    vehicleCatalog{
+      id
+      name
+    }
+    vehicleTrademark{
+      id
+      name
+    }
+    vehicleModel{
+      id
+      name
+    }
+    vehicleYear{
+      id
+      year
+    }
+    
+  }
+}
+`

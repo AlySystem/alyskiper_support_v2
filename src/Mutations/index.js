@@ -260,6 +260,35 @@ mutation updateSkiperVehicleCatTravel($idVehicle: Int, $idCatTravel: Int){
   }
 }
 `
+export const ACTUALIZAR_VEHICULO = gql`
+mutation updateSkiperVehicle($input: SkiperVehicleInput!){
+  updateSkiperVehicle(input:$input){
+    id
+    license_plate
+    skiperCatTravel{
+      id
+      name
+    }
+    vehicleCatalog{
+      id
+      name
+    }
+    vehicleTrademark{
+      id
+      name
+    }
+    vehicleModel{
+      id
+      name
+    }
+    vehicleYear{
+      id
+      year
+    }
+  }
+}
+`
+
 export const CREAR_REGISTRO_FOTOS_VEHICULO = gql`
 mutation createUploadVehicleAppearance($input: UploadVehicleAppearanceInput!){
   createUploadVehicleAppearance(input: $input){
