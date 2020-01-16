@@ -375,3 +375,10 @@ mutation updateExchangeRate($input: ExchangeRateInput) {
   }
 }
 `
+
+export const ACTUALIZAR_SPONSOR = gql`
+mutation updateUserSponsor($idUser: Int, $idSponsor: Int){
+  updateUserSponsor(idUser:$idUser,idSponsor:$idSponsor)
+}
+
+`

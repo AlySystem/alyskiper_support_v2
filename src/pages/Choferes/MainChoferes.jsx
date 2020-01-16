@@ -10,6 +10,7 @@ import { Modal } from 'antd'
 import ShowDriveInfo from '../../components/ShowDriveInfo/ShowDriveInfo'
 import ShowDriverVehicleInfo from "../../components/ShowDriveInfo/ShowDriverVehicleInfo";
 import AsociarImagenes from "../Vehiculos/AsociarImagenes";
+import ChangeSponsor from "../../components/ChangeSponsor/ChangeSponsor";
 //import logger from '../../utils/LogConfig'
 
 const MainChoferes = () => {
@@ -151,16 +152,16 @@ const MainChoferes = () => {
   }
 
   useEffect(() => {
-    if(!data)
+    if (!data)
       return
-    if(!data.getByCategoryAgentIdAndCountryId)
+    if (!data.getByCategoryAgentIdAndCountryId)
       return
-    if(data.getByCategoryAgentIdAndCountryId.length ==0)
+    if (data.getByCategoryAgentIdAndCountryId.length == 0)
       return
-    
-     setearRows()
-    
-  },[data])
+
+    setearRows()
+
+  }, [data])
 
   useEffect(() => {
     if (countryId) {
@@ -237,6 +238,24 @@ const MainChoferes = () => {
     </>)
   }
 
+  const [modalChangeSponsorVisible, setModalChangeSponsorVisible] = useState(false)
+  const modalChangeSponsor = () => {
+    return (<>
+      <Modal
+        title="Cambiar Sponsor"
+        visible={modalChangeSponsorVisible}
+        footer={null}
+        destroyOnClose={true}
+        width="50%"
+        onCancel={() => { setModalChangeSponsorVisible(false) }}>
+        <div align="center" >
+          <ChangeSponsor userId={userId} callback={() => { setModalChangeSponsorVisible(false) }} />
+        </div>
+      </Modal>
+    </>)
+  }
+
+
   const crearMenu = (agentId, userId) => {
     return (<nav>
       <ul className="nav">
@@ -245,6 +264,7 @@ const MainChoferes = () => {
             <li><a onClick={() => { setModalSoporteVisible(true); setModalAgentId(agentId) }}>Soportes</a></li>
             <li><a onClick={() => { setModalVehicleInfoVisible(true); setUserId(userId) }}>Vehiculo</a></li>
             <li><a onClick={() => { setModalVehicleImgVisible(true); setUserId(userId) }}>Editar Soportes</a></li>
+            <li><a onClick={() => { setModalChangeSponsorVisible(true); setUserId(userId) }}>Sponsor</a></li>
           </ul>
         </li>
       </ul>
@@ -256,6 +276,7 @@ const MainChoferes = () => {
       {modalSoportes()}
       {modalVehicleInfo()}
       {modalVehicleImg()}
+      {modalChangeSponsor()}
       <div>
         <h2>
           <p>Choferes por pais</p>

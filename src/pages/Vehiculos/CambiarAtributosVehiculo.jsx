@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import TrademarkSelect from '../../components/VehicleSelects/TrademarkSelect'
 import ModelSelect from '../../components/VehicleSelects/ModelSelect'
 import { ACTUALIZAR_VEHICULO } from '../../Mutations/index'
