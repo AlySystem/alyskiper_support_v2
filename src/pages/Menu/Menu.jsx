@@ -107,7 +107,10 @@ const MenuMain = () => {
             </span>
           }>
           <Menu.Item key="1">
-          <Link to="/tarifas/tc/main"><div>Tipos de Cambio</div></Link>
+            <Link to="/tarifas/tc/main"><div>Tipos de Cambio</div></Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Link to="/tarifas/main"><div>Tarifas de Viajes</div></Link>
           </Menu.Item>
         </SubMenu>
         <SubMenu

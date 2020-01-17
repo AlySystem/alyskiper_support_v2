@@ -2,6 +2,9 @@ import React from 'react'
 import FilteredGrid from '../../components/filteredGrid/FilteredGrid'
 import { useState } from 'react'
 import ScheduleSelect from '../../components/ScheduleSelect/ScheduleSelect'
+import CountriesSelect from '../../components/countriesSelect/CountriesSelect'
+import CitiesSelect from '../../components/CitiesSelect/CitiesSelect'
+import CatTravelSelect from '../../components/VehicleSelects/CatTravelSelect'
 
 const MainTarifas = _ => {
     const columns = [
@@ -48,8 +51,25 @@ const MainTarifas = _ => {
     const [rows, setRows] = useState()
 
     return (
-        <>  
-        <ScheduleSelect/>
+        <>
+            <div style={{ display: "flex" }}>
+                <div>
+                    <label>Pais</label>
+                    <CountriesSelect />
+                </div>
+                <div>
+                    <label>Ciudad</label>
+                    <CitiesSelect />
+                </div>
+                <div>
+                    <label>Categoria</label>
+                    <CatTravelSelect />
+                </div>
+                <div>
+                    <label>Horario</label>
+                    <ScheduleSelect />
+                </div>
+            </div>
             <FilteredGrid columns={columns} rows={rows} />
         </>
     )

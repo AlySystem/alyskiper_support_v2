@@ -23,7 +23,6 @@ import { Result } from "antd";
 import Img from "../../components/img/Img";
 import logo8 from "../../assets/img/Loader-Skiper (1).gif"
 import DriverImg from '../../components/DriverImg/DriverImg'
-import FormularioTarifas from '../Tarifas/FormularioTarifas'
 import FormularioUsers from "../../components/FormularioUsers/FormularioUsers";
 import NuevoEj from '../Ejecutivos/NuevoEj'
 import AlyChat from '../../components/chat/AlyChat'
@@ -32,7 +31,9 @@ import Gmap from '../Dashboard/Gmap'
 import Websocket from '../Dashboard/websocket'
 import UsuariosConectados from '../Dashboard/UsuariosConectados'
 import UltimosUsuarios from '../Usuarios/UltimosUsuarios'
-import MainTipoCambio from "../Tarifas/MainTipoCambio";
+import MainTipoCambio from "../Tarifas/MainTipoCambio"
+import FormularioTarifas from "../Tarifas/FormularioTarifas"
+import MainTarifas from '../Tarifas/MainTarifas'
 
 // import logo2 from "../../assets/img/AlySkiper vectorizado y registrado SIN DEGRADAR (1).png";
 // import Img from "../../components/img/Img";
@@ -135,6 +136,8 @@ const Home = props => {
               <UsuariosConectados path="/lastTravel"/>
               <UltimosUsuarios path="/lastUsers"/>
               <MainTipoCambio path="/tarifas/tc/main"/>
+              <MainTarifas path="/tarifas/main"/>
+              <FormularioTarifas path="/tarifas/form"/>
             </Router>
           </div>
         </Content>
