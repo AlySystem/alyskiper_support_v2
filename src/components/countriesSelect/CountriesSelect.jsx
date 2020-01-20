@@ -8,7 +8,7 @@ const CountriesSelect = ({ onChange, register, options, name, defvalue,...rest }
 
     const { data } = useQuery(COUNTRIES, {
         onCompleted: () => { setValue(defvalue) },
-        onError: (err) => { console.log(err)}
+        onError: (err) => { console.log(err); if(rest.callback) rest.callback()}
     })
     const [value, setValue] = useState()
     useEffect(() => {

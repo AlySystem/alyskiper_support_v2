@@ -382,3 +382,71 @@ mutation updateUserSponsor($idUser: Int, $idSponsor: Int){
 }
 
 `
+
+export const ACTUALIZAR_TARIFA = gql`
+mutation updateTariff($input: SkiperTariffsInput){
+	updateTariff(input: $input){
+    id
+    price_base
+    price_minute
+    price_kilometer
+    price_minimum
+    symbol
+    skiperCatTravel {
+      id
+      name
+    }
+    driverShedule {
+      id
+      start_time
+      final_time
+      turn
+    }
+    countrie {
+      id
+      name
+    }
+    cities {
+      id
+      name
+    }
+  }
+}
+`
+
+export const INGRESAR_TARIFA = gql`
+mutation insertTariff($input: SkiperTariffsInput){
+	insertTariff(input: $input){
+    id
+    price_base
+    price_minute
+    price_kilometer
+    price_minimum
+    symbol
+    skiperCatTravel {
+      id
+      name
+    }
+    driverShedule {
+      id
+      start_time
+      final_time
+      turn
+    }
+    countrie {
+      id
+      name
+    }
+    cities {
+      id
+      name
+    }
+  }
+}
+`
+
+export const INSERTAR_TARIFAS_LOTE = gql`
+mutation tariffBatchInsert($input: [SkiperTariffsInput]){
+  tariffBatchInsert(input: $input)
+}
+`

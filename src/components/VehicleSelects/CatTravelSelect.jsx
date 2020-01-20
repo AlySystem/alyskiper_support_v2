@@ -1,10 +1,12 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { SKIPER_CATEGORIA } from '../../Queries'
 import { useQuery } from '@apollo/react-hooks'
 
 const CatTravelSelect = (props) => {
-    const { data } = useQuery(SKIPER_CATEGORIA)
-
+    const { data } = useQuery(SKIPER_CATEGORIA,{
+        onCompleted: _=> setValue(props.defvalue)
+    })
+    const [value,setValue] = useState()
     if (!data) {
         return (<select style={{ minWidth: "200px" }}></select>)
     }
@@ -13,7 +15,8 @@ const CatTravelSelect = (props) => {
         <select
             name={props.name}
             ref={props.register}
-            onChange={props.onChange}            
+            onChange={props.onChange}    
+            value={value}
         >
             {
                 data.skipercattravels.map((x) => {
@@ -24,4 +27,4 @@ const CatTravelSelect = (props) => {
     )
 }
 
-export default CatTravelSelect
+export default CatTravelSelect      

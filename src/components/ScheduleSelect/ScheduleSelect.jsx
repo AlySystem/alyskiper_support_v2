@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { HORARIOS } from '../../Queries'
-import { useEffect } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 
 
 const ScheduleSelect = ({ onChange, register, options, name, ...rest }) => {
 
-    const {
-        data,
-    } = useQuery(HORARIOS, {
+    const { data } = useQuery(HORARIOS, {
+        onCompleted: _ => setValue(rest.defvalue)
     })
+
+    const [value, setValue] = useState()
 
     useEffect(() => {
         if (data) {
@@ -28,6 +28,7 @@ const ScheduleSelect = ({ onChange, register, options, name, ...rest }) => {
             ref={register}
             onChange={onChange}
             {...rest}
+            value={value}
         >
             {
                 data.getAllSkiperDriverSchedule.map(x => {

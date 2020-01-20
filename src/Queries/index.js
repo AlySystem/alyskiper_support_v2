@@ -886,3 +886,67 @@ query getSkiperVehicleByVehicleId($id: Int!){
   }
 }
 `
+
+export const OBTENER_TARIFAS_FILTRADO = gql`
+query findTariffsWithFilters($filter: SkiperTariffsFilterInput!){
+  findTariffsWithFilters(filter: $filter) {
+    id
+    price_base
+    price_minute
+    price_kilometer
+    price_minimum
+    symbol
+    skiperCatTravel {
+      id
+      name
+    }
+    driverShedule {
+      id
+      start_time
+      final_time
+      turn
+    }
+    countrie {
+      id
+      name
+    }
+    cities {
+      id
+      name
+    }
+
+  }
+}
+`
+
+export const OBTENER_TARIFAS_BY_ID = gql`
+query getTariffsById($id: Int!){
+  getTariffsById(id: $id){
+    id
+    price_base
+    price_minute
+    price_kilometer
+    price_minimum
+    symbol
+    skiperCatTravel {
+      id
+      name
+    }
+    driverShedule {
+      id
+      start_time
+      final_time
+      turn
+    }
+    countrie {
+      id
+      name
+    }
+    cities {
+      id
+      name
+    }
+    
+  }
+}
+`
