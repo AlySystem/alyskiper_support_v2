@@ -447,6 +447,10 @@ mutation insertTariff($input: SkiperTariffsInput){
 
 export const INSERTAR_TARIFAS_LOTE = gql`
 mutation tariffBatchInsert($input: [SkiperTariffsInput]){
-  tariffBatchInsert(input: $input)
+  tariffBatchInsert(input: $input){
+    tariffInput
+    status
+    error
+  }
 }
 `
