@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import FilteredGrid from '../../components/filteredGrid/FilteredGrid'
-import { OBTENER_WALLET_DE_USUARIO } from '../../Queries/index'
+import { OBTENER_WALLET_DE_USUARIO, OBTENER_WALLETS_USUARIO } from '../../Queries/index'
 import { useLazyQuery } from 'react-apollo'
 import UserInfo from '../../components/UserInfo/UserInfo'
 const MainWallet = () => {
@@ -22,7 +22,7 @@ const MainWallet = () => {
     ]
 
     const [rows, setRows] = useState();
-    const [loadWallets] = useLazyQuery(OBTENER_WALLET_DE_USUARIO, {
+    /*const [loadWallets] = useLazyQuery(OBTENER_WALLET_DE_USUARIO, {
         onCompleted: (data) => {
             console.log("Se completo sin errores");
             console.log(data);
@@ -30,7 +30,29 @@ const MainWallet = () => {
         },
         onError: (error) => { console.error(error) },
         fetchPolicy:"network-only"
+    })*/
+
+    const [loadWallets] = useLazyQuery(OBTENER_WALLETS_USUARIO, {
+        onCompleted: (data) => {
+            console.log(data)
+            setearRows(data.GetUserWallets)
+        },
+        onError: err => { console.error(err) }
     })
+
+    const setearRows = (data) => {
+        let wallets = data.skiperWallet.map( (item) => {
+            return {
+                id: item.id,
+                amount:item.amount,
+                amount_crypto: item.amount_crypto,
+                country: item.countryID.name,
+                currency: item.currencyID.name
+            }
+        } )
+
+        setRows(wallets)
+    }
 
     const onDataLoaded = (data) => {
         //getAllSkiperWalletsByUserId
@@ -55,7 +77,7 @@ const MainWallet = () => {
         
         loadWallets({
             variables: {
-                iduser: userData.id
+                id: userData.id
             }
         })
     }

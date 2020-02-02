@@ -525,6 +525,8 @@ query searchUserByEmail($email: String!){
   }
 }`
 
+
+
 export const VEHICULO_POR_PLACA = gql`
 query getVehicleByNumberPlate($numberplate: String!){
   getVehicleByNumberPlate(numberplate:$numberplate){
@@ -566,7 +568,7 @@ query getAllSkiperWalletsByUserId($iduser: Int!) {
   getAllSkiperWalletsByUserId(iduser: $iduser)
   {
     id
-    amount
+    
     currencyID{
         id
         name
@@ -575,6 +577,40 @@ query getAllSkiperWalletsByUserId($iduser: Int!) {
         id
         name
     }
+  }
+}
+`
+
+export const OBTENER_WALLETS_USUARIO = gql`
+query GetUserWallets($id: Int!) {
+  GetUserWallets(id:$id){
+    skiperWallet{
+        id
+        amount
+        amount_crypto
+        countryID{
+          id
+          name
+        }
+        currencyID{
+          id
+          name
+          isCrypto
+        }
+      }
+      skiperWalletLocal{
+        id
+        amount
+        countryID{
+          id
+          name
+        }
+        currencyID{
+          id
+          name
+          isCrypto
+        }
+      }
   }
 }
 `
